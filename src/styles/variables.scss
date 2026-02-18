@@ -1,0 +1,76 @@
+/* Light Theme (default) */
+:root {
+  /* Whites */
+  --white-100: #f1f1fa;
+  --white-200: #f7f7f8;
+  --white-300: #ececef;
+
+  /* Blacks */
+  --black-100: #111111;
+  --black-200: #2a2a2a;
+  --black-300: #4a4a4a;
+
+  --progress-bg: #e7e7e9;
+  --progress-border: #d0d0d0;
+
+  --navbar-bg: rgba(0, 0, 0, 0.03);
+  --navbar-border: rgba(0, 0, 0, 0.12);
+  --navbar-text: #1c1c1c;
+  --navbar-text-muted: #595858;
+  --navbar-border-active: rgba(105, 104, 104, 0.35);
+
+  --glass-blur: 14px;
+
+  /* Semantic mapping */
+  --color-bg-primary: var(--white-100);
+  --color-bg-secondary: var(--white-200);
+  --color-bg-tertiary: var(--white-300);
+
+  --color-text-primary: var(--black-100);
+  --color-text-secondary: var(--black-200);
+  --color-text-muted: var(--black-300);
+
+  --color-border: var(--white-300);
+  --color-accent: #2563eb;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  /* Whites */
+  --white-100: #e5e7eb;
+  --white-200: #cbd5f5;
+  --white-300: #9ca3af;
+
+  /* Blacks */
+  --black-100: #0b0b0c;
+  --black-200: #121316;
+  --black-300: #1c1d21;
+
+  --progress-bg: #222222;
+  --progress-border: #2f2f2f;
+
+  --navbar-bg: rgba(255, 255, 255, 0.06);
+  --navbar-border: rgba(255, 255, 255, 0.12);
+  --navbar-text: #4c4c4c;
+  --navbar-text-muted: #9a9a9a;
+  --navbar-border-active: rgba(255, 255, 255, 0.35);
+
+  --glass-blur: 14px;
+
+  /* Semantic mapping */
+  --color-bg-primary: var(--black-100);
+  --color-bg-secondary: var(--black-200);
+  --color-bg-tertiary: var(--black-300);
+
+  --color-text-primary: var(--white-100);
+  --color-text-secondary: var(--white-200);
+  --color-text-muted: var(--white-300);
+
+  --color-border: var(--black-300);
+  --color-accent: #60a5fa;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
