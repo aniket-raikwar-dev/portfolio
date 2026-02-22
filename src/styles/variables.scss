@@ -17,7 +17,9 @@
   --navbar-border: rgba(0, 0, 0, 0.12);
   --navbar-text: #1c1c1c;
   --navbar-text-muted: #595858;
-  --navbar-border-active: rgba(105, 104, 104, 0.35);
+  --navbar-text-muted-bright: #666666;
+  --navbar-text-active: #3a3a3a;
+  --navbar-border-active: rgba(80, 80, 80, 0.45);
 
   --glass-blur: 14px;
 
@@ -31,7 +33,8 @@
   --color-text-muted: var(--black-300);
 
   --color-border: var(--white-300);
-  --color-accent: #2563eb;
+  --color-accent: #1f66ff;
+  --color-accent-light: #4d7fff;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -55,7 +58,9 @@
   --navbar-border: rgba(255, 255, 255, 0.12);
   --navbar-text: #4c4c4c;
   --navbar-text-muted: #9a9a9a;
-  --navbar-border-active: rgba(255, 255, 255, 0.35);
+  --navbar-text-muted-bright: #a5a5a5;
+  --navbar-text-active: #b8b8b8;
+  --navbar-border-active: rgba(255, 255, 255, 0.4);
 
   --glass-blur: 14px;
 
@@ -69,7 +74,8 @@
   --color-text-muted: var(--white-300);
 
   --color-border: var(--black-300);
-  --color-accent: #60a5fa;
+  --color-accent: #1f66ff;
+  --color-accent-light: #4d7fff;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.6);

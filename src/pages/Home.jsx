@@ -1,12 +1,11 @@
-import React, { forwardRef } from "react";
-import Navbar from "../components/layout/Navbar";
+import HeroSection from "../components/layout/HeroSection";
 
-const Home = forwardRef((_, ref) => {
+const Home = () => {
   return (
-    <div ref={ref} className="main-container">
-      <Navbar />
-    </div>
+    <>
+      <HeroSection />
+    </>
   );
-});
+};
 
 export default Home;
