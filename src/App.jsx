@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import "./styles/global.scss";
 import { gsap } from "gsap";
 import Preloader from "./pages/Preloader";
@@ -9,8 +9,20 @@ function App() {
   const loaderRef = useRef(null);
   const introRef = useRef(null);
   const mainRef = useRef(null);
+  const [isIntroActive, setIsIntroActive] = useState(false);
+  const [showMainContent, setShowMainContent] = useState(false);
+
+  useEffect(() => {
+    if (!showMainContent) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showMainContent]);
 
   const startSequence = () => {
+    setIsIntroActive(true);
     const tl = gsap.timeline();
 
     tl.to(loaderRef.current, {
@@ -29,7 +41,12 @@ function App() {
   };
 
   const handleIntroComplete = () => {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        document.body.style.overflow = "";
+        setShowMainContent(true);
+      },
+    });
 
     tl.to(introRef.current, {
       y: "-100vh",
@@ -46,13 +63,21 @@ function App() {
     );
   };
 
+  if (showMainContent) {
+    return (
+      <div className="App">
+        <div className="main-container main-container--visible">
+          <AppRouter />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Preloader ref={loaderRef} onComplete={startSequence} />
-      <IntroSplash ref={introRef} onScrollComplete={handleIntroComplete} />
-      <div ref={mainRef} className="main-container">
-        <AppRouter />
-      </div>
+      <IntroSplash ref={introRef} isActive={isIntroActive} onScrollComplete={handleIntroComplete} />
+      <div ref={mainRef} className="main-container" aria-hidden="true" />
     </div>
   );
 }

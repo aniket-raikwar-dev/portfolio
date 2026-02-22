@@ -152,14 +152,14 @@ const Navbar = () => {
     const images = navCardsRef.current.querySelectorAll(".nav-card__img-wrap img");
     if (isOpen) {
       gsap.to(images, {
-        xPercent: -50,
+        xPercent: 0,
         y: 0,
         duration: 1.2,
         ease: "power2.out",
         overwrite: true,
       });
     } else {
-      gsap.set(images, { xPercent: -50, y: "100%" });
+      gsap.set(images, { xPercent: 0, y: "100%" });
     }
   }, [isOpen]);
 

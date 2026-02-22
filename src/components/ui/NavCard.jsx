@@ -1,26 +1,12 @@
 import { RiArrowRightLine } from "react-icons/ri";
 
+import OnetaskImage from "../../assets/images/nav/onetask.png";
+
 const NAV_CARDS = [
-  {
-    id: 1,
-    label: "ONETASK",
-    image: "https://cdn.undraw.co/illustrations/around-the-world_vgcy.svg",
-  },
-  {
-    id: 2,
-    label: "WORDCRAFT",
-    image: "https://cdn.undraw.co/illustrations/documents_9rcz.svg",
-  },
-  {
-    id: 3,
-    label: "STARBUCK",
-    image: "https://cdn.undraw.co/illustrations/nature_yf30.svg",
-  },
-  {
-    id: 4,
-    label: "SNAKE GAME",
-    image: "https://cdn.undraw.co/illustrations/cat_lqdj.svg",
-  },
+  { id: 1, label: "ONETASK", image: OnetaskImage },
+  { id: 2, label: "WORDCRAFT", image: "https://cdn.undraw.co/illustrations/documents_9rcz.svg" },
+  { id: 3, label: "STARBUCK", image: "https://cdn.undraw.co/illustrations/nature_yf30.svg" },
+  { id: 4, label: "SNAKE GAME", image: "https://cdn.undraw.co/illustrations/cat_lqdj.svg" },
 ];
 
 const NavCard = ({ label, image }) => {

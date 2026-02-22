@@ -39,7 +39,7 @@ const images = [
   "https://picsum.photos/seed/port5/200/200",
 ];
 
-const IntroSplash = forwardRef(({ onScrollComplete }, ref) => {
+const IntroSplash = forwardRef(({ onScrollComplete, isActive = false }, ref) => {
   const speedMultiplierRef = useRef(1);
   const scrollAccumRef = useRef(0);
   const hasTriggeredRef = useRef(false);
@@ -47,8 +47,7 @@ const IntroSplash = forwardRef(({ onScrollComplete }, ref) => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const container = ref?.current;
-    if (!container) return;
+    if (!isActive) return;
 
     const decayLoop = () => {
       speedMultiplierRef.current = Math.max(
@@ -60,8 +59,9 @@ const IntroSplash = forwardRef(({ onScrollComplete }, ref) => {
     decayRafRef.current = requestAnimationFrame(decayLoop);
 
     const handleWheel = (e) => {
-      e.preventDefault();
       if (hasTriggeredRef.current) return;
+      e.preventDefault();
+      e.stopPropagation();
 
       const absDelta = Math.abs(e.deltaY);
       speedMultiplierRef.current = Math.min(
@@ -116,21 +116,23 @@ const IntroSplash = forwardRef(({ onScrollComplete }, ref) => {
       }
     };
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    container.addEventListener("touchstart", handleTouchStart, {
+    document.addEventListener("wheel", handleWheel, { passive: false, capture: true });
+    document.addEventListener("touchstart", handleTouchStart, {
       passive: true,
+      capture: true,
     });
-    container.addEventListener("touchmove", handleTouchMove, {
+    document.addEventListener("touchmove", handleTouchMove, {
       passive: false,
+      capture: true,
     });
 
     return () => {
-      container.removeEventListener("wheel", handleWheel);
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("wheel", handleWheel, { capture: true });
+      document.removeEventListener("touchstart", handleTouchStart, { capture: true });
+      document.removeEventListener("touchmove", handleTouchMove, { capture: true });
       if (decayRafRef.current) cancelAnimationFrame(decayRafRef.current);
     };
-  }, [ref, onScrollComplete]);
+  }, [onScrollComplete, isActive]);
 
   return (
     <div ref={ref} className="intro-container">
