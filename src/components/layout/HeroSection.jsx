@@ -69,8 +69,8 @@ const HERO_CARDS = [
   { image: Img2, x: -180, y: -6, rotateY: 28, zIndex: 2, label: "Creative" },
   { image: Img3, x: -78, y: -14, rotateY: 14, zIndex: 3, label: "Frontend" },
   { image: Img4, x: 18, y: -10, rotateY: -4, zIndex: 4, label: "Take a Coffee" },
-  { image: Img5, x: 114, y: -2, rotateY: -20, zIndex: 3, label: "Motion" },
-  { image: Img6, x: 204, y: 10, rotateY: -36, zIndex: 2, label: "Code" },
+  { image: Img5, x: 114, y: -14, rotateY: -20, zIndex: 3, label: "Motion" },
+  { image: Img6, x: 204, y: -6, rotateY: -36, zIndex: 2, label: "Code" },
 ];
 
 const SLAM_STAGGER = 240;

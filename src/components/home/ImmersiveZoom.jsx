@@ -1,7 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
-const SCROLL_THRESHOLD = 1200;
+const SCROLL_THRESHOLD = 1000;
+const LERP_SPEED = 0.12; // Smooth interpolation toward target progress
+const COMPLETION_THRESHOLD = 0.98;
 
 // Images of people WITH objects/doing activities
 const IMAGES = [
@@ -38,84 +40,162 @@ const ImmersiveZoom = ({ onComplete }) => {
   const scatteredRefs = useRef([]);
   const mainTextRef = useRef(null);
   const subTextRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const scrollAccumRef = useRef(0);
-  const speedMultiplierRef = useRef(1);
+  const displayProgressRef = useRef(0);
   const hasTriggeredRef = useRef(false);
-  const decayRafRef = useRef(null);
   const isActiveRef = useRef(false);
+  const rafRef = useRef(null);
+  const initialDeltasRef = useRef(null);
 
   useEffect(() => {
-    // Decay loop for speed multiplier
-    const decayLoop = () => {
-      speedMultiplierRef.current = Math.max(1, speedMultiplierRef.current * 0.95);
-      decayRafRef.current = requestAnimationFrame(decayLoop);
-    };
-
     const handleWheel = (e) => {
       if (!isActiveRef.current) return;
-
-      const absDelta = Math.abs(e.deltaY);
-      speedMultiplierRef.current = Math.min(
-        speedMultiplierRef.current + absDelta * 0.03,
-        10
-      );
 
       // Scrolling up at 0 progress - allow going back to hero
       if (e.deltaY < 0 && scrollAccumRef.current <= 0) {
         isActiveRef.current = false;
+        hasTriggeredRef.current = false;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        displayProgressRef.current = 0;
+        applyTransforms(0);
         document.body.style.overflow = "";
         document.removeEventListener("wheel", handleWheel, { capture: true });
-        if (decayRafRef.current) cancelAnimationFrame(decayRafRef.current);
         return;
       }
 
       e.preventDefault();
       e.stopPropagation();
 
-      // Handle both scroll directions
       if (e.deltaY > 0) {
-        // Scrolling down
         scrollAccumRef.current += e.deltaY;
       } else {
-        // Scrolling up
         scrollAccumRef.current = Math.max(0, scrollAccumRef.current + e.deltaY);
       }
 
-      const progress = Math.min(Math.max(scrollAccumRef.current / SCROLL_THRESHOLD, 0), 1);
-      setScrollProgress(progress);
+      const targetProgress = Math.min(
+        Math.max(scrollAccumRef.current / SCROLL_THRESHOLD, 0),
+        1
+      );
 
-      // Complete when reaching 100%
-      if (progress >= 1 && !hasTriggeredRef.current) {
+      // Complete when reaching threshold
+      if (targetProgress >= COMPLETION_THRESHOLD && !hasTriggeredRef.current) {
         hasTriggeredRef.current = true;
+        isActiveRef.current = false;
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
         document.body.style.overflow = "";
         document.removeEventListener("wheel", handleWheel, { capture: true });
-        if (decayRafRef.current) cancelAnimationFrame(decayRafRef.current);
-        setTimeout(() => {
-          onComplete?.();
-        }, 300);
+        displayProgressRef.current = 1;
+        applyTransforms(1);
+        setTimeout(() => onComplete?.(), 350);
+      }
+    };
+
+    const applyTransforms = (progress) => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      if (!initialDeltasRef.current) {
+        initialDeltasRef.current = scatteredRefs.current.map((el) => {
+          if (!el) return { dirX: 1, dirY: 0 };
+          const rect = el.getBoundingClientRect();
+          const imgCenterX = rect.left + rect.width / 2;
+          const imgCenterY = rect.top + rect.height / 2;
+          const dx = imgCenterX - centerX;
+          const dy = imgCenterY - centerY;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          return {
+            dirX: dx / dist,
+            dirY: dy / dist,
+          };
+        });
+      }
+
+      const pushDistance = Math.max(window.innerWidth, window.innerHeight) * 0.8 * progress;
+      const scale = 1 + progress * 2.5;
+
+      scatteredRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const { dirX, dirY } = initialDeltasRef.current[i] || {
+          dirX: 1,
+          dirY: 0,
+        };
+
+        const moveX = dirX * pushDistance;
+        const moveY = dirY * pushDistance;
+
+        gsap.set(el, { scale, x: moveX, y: moveY });
+      });
+
+      if (mainTextRef.current) {
+        gsap.set(mainTextRef.current, {
+          opacity: Math.max(0, 1 - progress),
+          y: 0,
+        });
+      }
+
+      if (subTextRef.current) {
+        gsap.set(subTextRef.current, {
+          opacity: 1,
+          scale: 1,
+        });
+      }
+    };
+
+    const animate = () => {
+      if (!isActiveRef.current) return;
+
+      const targetProgress = Math.min(
+        Math.max(scrollAccumRef.current / SCROLL_THRESHOLD, 0),
+        1
+      );
+      const current = displayProgressRef.current;
+      const diff = targetProgress - current;
+      const next = Math.abs(diff) < 0.002 ? targetProgress : current + diff * LERP_SPEED;
+
+      displayProgressRef.current = next;
+      applyTransforms(next);
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    const activate = (isReEntry = false) => {
+      isActiveRef.current = true;
+      if (!isReEntry) initialDeltasRef.current = null;
+      document.body.style.overflow = "hidden";
+      document.addEventListener("wheel", handleWheel, { passive: false, capture: true });
+
+      if (isReEntry) {
+        scrollAccumRef.current = SCROLL_THRESHOLD;
+        displayProgressRef.current = 1;
+        applyTransforms(1);
+      } else {
+        displayProgressRef.current = 0;
+        scrollAccumRef.current = 0;
+        applyTransforms(0);
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+
+      if (!isReEntry) {
+        const rect = containerRef.current.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const targetScroll = scrollTop + rect.top - (window.innerHeight - rect.height) / 2;
+        window.scrollTo({ top: targetScroll, behavior: "smooth" });
       }
     };
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.8 && !isActiveRef.current) {
-          // Scroll to center the section
-          const rect = containerRef.current.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          const targetScroll = scrollTop + rect.top - (window.innerHeight - rect.height) / 2;
-          
-          window.scrollTo({
-            top: targetScroll,
-            behavior: "smooth",
-          });
+        if (!entry.isIntersecting || !containerRef.current) return;
 
-          setTimeout(() => {
-            isActiveRef.current = true;
-            document.body.style.overflow = "hidden";
-            decayRafRef.current = requestAnimationFrame(decayLoop);
-            document.addEventListener("wheel", handleWheel, { passive: false, capture: true });
-          }, 500);
+        const isReEntry = hasTriggeredRef.current;
+
+        if (entry.intersectionRatio >= 0.8 && !isActiveRef.current) {
+          if (isReEntry) {
+            activate(true);
+          } else {
+            setTimeout(() => activate(false), 500);
+          }
         }
       },
       { threshold: [0, 0.5, 0.8, 1] }
@@ -127,62 +207,11 @@ const ImmersiveZoom = ({ onComplete }) => {
 
     return () => {
       observer.disconnect();
-      if (decayRafRef.current) cancelAnimationFrame(decayRafRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
       document.removeEventListener("wheel", handleWheel, { capture: true });
       document.body.style.overflow = "";
     };
   }, [onComplete]);
-
-  // Apply animations based on scroll progress
-  useEffect(() => {
-    // Images zoom out and move outward from center (go outside viewport)
-    scatteredRefs.current.forEach((el, i) => {
-      if (!el) return;
-      
-      const pos = SCATTERED_POSITIONS[i];
-      const rect = el.getBoundingClientRect();
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const imgCenterX = rect.left + rect.width / 2;
-      const imgCenterY = rect.top + rect.height / 2;
-      
-      // Calculate direction from center
-      const deltaX = imgCenterX - centerX;
-      const deltaY = imgCenterY - centerY;
-      
-      // Scale up dramatically and push outward
-      const scale = 1 + scrollProgress * 6;
-      const moveX = deltaX * scrollProgress * 2;
-      const moveY = deltaY * scrollProgress * 2;
-      
-      gsap.to(el, {
-        scale,
-        x: moveX,
-        y: moveY,
-        duration: 0.1,
-        ease: "none",
-      });
-    });
-
-    // Main text fades out
-    if (mainTextRef.current) {
-      gsap.to(mainTextRef.current, {
-        opacity: 1 - scrollProgress * 1.5,
-        y: -scrollProgress * 30,
-        duration: 0.1,
-        ease: "none",
-      });
-    }
-
-    // Sub text stays visible
-    if (subTextRef.current) {
-      gsap.to(subTextRef.current, {
-        scale: 1 + scrollProgress * 0.1,
-        duration: 0.1,
-        ease: "none",
-      });
-    }
-  }, [scrollProgress]);
 
   return (
     <section ref={containerRef} className="immersive-zoom">
