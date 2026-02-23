@@ -949,15 +949,39 @@ body {
   will-change: transform, opacity;
 }
 
-.immersive-zoom__text-sub {
+.immersive-zoom__phrase-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+.immersive-zoom__phrase-left,
+.immersive-zoom__phrase-right {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(0.9rem, 1.5vw, 1.3rem);
   font-weight: 300;
   color: #fff;
   line-height: 1.2;
-  letter-spacing: 0;
-  margin: 0;
   will-change: transform, opacity;
+}
+
+.immersive-zoom__center-image {
+  overflow: hidden;
+  flex-shrink: 0;
+  min-width: 0;
+  will-change: transform, opacity;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
 
 /* Responsive Design */

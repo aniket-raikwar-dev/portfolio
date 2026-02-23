@@ -2,8 +2,13 @@ import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 
 const SCROLL_THRESHOLD = 1000;
-const LERP_SPEED = 0.12; // Smooth interpolation toward target progress
+const PHASE2_SCROLL = 1000; // Extra scroll for phase 2 (text split + center image)
+const TOTAL_SCROLL = SCROLL_THRESHOLD + PHASE2_SCROLL;
+const LERP_SPEED = 0.12;
 const COMPLETION_THRESHOLD = 0.98;
+
+const CENTER_IMAGE =
+  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=400&fit=crop";
 
 // Images of people WITH objects/doing activities
 const IMAGES = [
@@ -39,7 +44,9 @@ const ImmersiveZoom = ({ onComplete }) => {
   const containerRef = useRef(null);
   const scatteredRefs = useRef([]);
   const mainTextRef = useRef(null);
-  const subTextRef = useRef(null);
+  const byRealRef = useRef(null);
+  const peopleRef = useRef(null);
+  const centerImageRef = useRef(null);
   const scrollAccumRef = useRef(0);
   const displayProgressRef = useRef(0);
   const hasTriggeredRef = useRef(false);
@@ -67,25 +74,28 @@ const ImmersiveZoom = ({ onComplete }) => {
       e.stopPropagation();
 
       if (e.deltaY > 0) {
-        scrollAccumRef.current += e.deltaY;
+        scrollAccumRef.current = Math.min(
+          TOTAL_SCROLL,
+          scrollAccumRef.current + e.deltaY
+        );
       } else {
         scrollAccumRef.current = Math.max(0, scrollAccumRef.current + e.deltaY);
       }
 
       const targetProgress = Math.min(
         Math.max(scrollAccumRef.current / SCROLL_THRESHOLD, 0),
-        1
+        2
       );
 
-      // Complete when reaching threshold
-      if (targetProgress >= COMPLETION_THRESHOLD && !hasTriggeredRef.current) {
+      // Complete when reaching end of phase 2
+      if (targetProgress >= 1.98 && !hasTriggeredRef.current) {
         hasTriggeredRef.current = true;
         isActiveRef.current = false;
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         document.body.style.overflow = "";
         document.removeEventListener("wheel", handleWheel, { capture: true });
-        displayProgressRef.current = 1;
-        applyTransforms(1);
+        displayProgressRef.current = 2;
+        applyTransforms(2);
         setTimeout(() => onComplete?.(), 350);
       }
     };
@@ -110,8 +120,12 @@ const ImmersiveZoom = ({ onComplete }) => {
         });
       }
 
-      const pushDistance = Math.max(window.innerWidth, window.innerHeight) * 0.8 * progress;
-      const scale = 1 + progress * 2.5;
+      const phase1Progress = Math.min(progress, 1);
+      const phase2Progress = Math.max(0, progress - 1);
+
+      const pushDistance =
+        Math.max(window.innerWidth, window.innerHeight) * 0.8 * phase1Progress;
+      const scale = 1 + phase1Progress * 2.5;
 
       scatteredRefs.current.forEach((el, i) => {
         if (!el) return;
@@ -128,15 +142,31 @@ const ImmersiveZoom = ({ onComplete }) => {
 
       if (mainTextRef.current) {
         gsap.set(mainTextRef.current, {
-          opacity: Math.max(0, 1 - progress),
+          opacity: Math.max(0, 1 - phase1Progress),
           y: 0,
         });
       }
 
-      if (subTextRef.current) {
-        gsap.set(subTextRef.current, {
+      const spreadAmount = 100;
+      if (byRealRef.current) {
+        gsap.set(byRealRef.current, {
           opacity: 1,
-          scale: 1,
+          x: -phase2Progress * spreadAmount,
+        });
+      }
+      if (peopleRef.current) {
+        gsap.set(peopleRef.current, {
+          opacity: 1,
+          x: phase2Progress * spreadAmount,
+        });
+      }
+      if (centerImageRef.current) {
+        const baseW = 240;
+        const baseH = 144;
+        gsap.set(centerImageRef.current, {
+          opacity: phase2Progress > 0 ? Math.min(1, phase2Progress * 1.2) : 0,
+          width: baseW * phase2Progress,
+          height: baseH * phase2Progress,
         });
       }
     };
@@ -146,7 +176,7 @@ const ImmersiveZoom = ({ onComplete }) => {
 
       const targetProgress = Math.min(
         Math.max(scrollAccumRef.current / SCROLL_THRESHOLD, 0),
-        1
+        2
       );
       const current = displayProgressRef.current;
       const diff = targetProgress - current;
@@ -165,9 +195,9 @@ const ImmersiveZoom = ({ onComplete }) => {
       document.addEventListener("wheel", handleWheel, { passive: false, capture: true });
 
       if (isReEntry) {
-        scrollAccumRef.current = SCROLL_THRESHOLD;
-        displayProgressRef.current = 1;
-        applyTransforms(1);
+        scrollAccumRef.current = TOTAL_SCROLL;
+        displayProgressRef.current = 2;
+        applyTransforms(2);
       } else {
         displayProgressRef.current = 0;
         scrollAccumRef.current = 0;
@@ -238,9 +268,17 @@ const ImmersiveZoom = ({ onComplete }) => {
           <h2 ref={mainTextRef} className="immersive-zoom__text-main">
             Real Recommendations
           </h2>
-          <p ref={subTextRef} className="immersive-zoom__text-sub">
-            by real people
-          </p>
+          <div className="immersive-zoom__phrase-row">
+            <span ref={byRealRef} className="immersive-zoom__phrase-left">
+              by real
+            </span>
+            <div ref={centerImageRef} className="immersive-zoom__center-image">
+              <img src={CENTER_IMAGE} alt="" />
+            </div>
+            <span ref={peopleRef} className="immersive-zoom__phrase-right">
+              {" "}people
+            </span>
+          </div>
         </div>
       </div>
     </section>
