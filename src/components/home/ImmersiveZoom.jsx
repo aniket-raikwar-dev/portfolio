@@ -55,11 +55,12 @@ const ImmersiveZoom = ({ onComplete }) => {
   const initialDeltasRef = useRef(null);
 
   useEffect(() => {
-    const handleWheel = (e) => {
+    const touchStartYRef = { current: null };
+
+    const applyDelta = (deltaY) => {
       if (!isActiveRef.current) return;
 
-      // Scrolling up at 0 progress - allow going back to hero
-      if (e.deltaY < 0 && scrollAccumRef.current <= 0) {
+      if (deltaY < 0 && scrollAccumRef.current <= 0) {
         isActiveRef.current = false;
         hasTriggeredRef.current = false;
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
@@ -67,19 +68,26 @@ const ImmersiveZoom = ({ onComplete }) => {
         applyTransforms(0);
         document.body.style.overflow = "";
         document.removeEventListener("wheel", handleWheel, { capture: true });
+        document.removeEventListener("touchstart", handleTouchStart, {
+          capture: true,
+        });
+        document.removeEventListener("touchend", handleTouchEnd, {
+          capture: true,
+        });
+        document.removeEventListener("touchmove", handleTouchMove, {
+          passive: false,
+          capture: true,
+        });
         return;
       }
 
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (e.deltaY > 0) {
+      if (deltaY > 0) {
         scrollAccumRef.current = Math.min(
           TOTAL_SCROLL,
-          scrollAccumRef.current + e.deltaY
+          scrollAccumRef.current + deltaY
         );
       } else {
-        scrollAccumRef.current = Math.max(0, scrollAccumRef.current + e.deltaY);
+        scrollAccumRef.current = Math.max(0, scrollAccumRef.current + deltaY);
       }
 
       const targetProgress = Math.min(
@@ -87,17 +95,63 @@ const ImmersiveZoom = ({ onComplete }) => {
         2
       );
 
-      // Complete when reaching end of phase 2
       if (targetProgress >= 1.98 && !hasTriggeredRef.current) {
         hasTriggeredRef.current = true;
         isActiveRef.current = false;
         if (rafRef.current) cancelAnimationFrame(rafRef.current);
         document.body.style.overflow = "";
         document.removeEventListener("wheel", handleWheel, { capture: true });
+        document.removeEventListener("touchstart", handleTouchStart, {
+          capture: true,
+        });
+        document.removeEventListener("touchend", handleTouchEnd, {
+          capture: true,
+        });
+        document.removeEventListener("touchmove", handleTouchMove, {
+          passive: false,
+          capture: true,
+        });
         displayProgressRef.current = 2;
         applyTransforms(2);
         setTimeout(() => onComplete?.(), 350);
       }
+    };
+
+    const handleWheel = (e) => {
+      if (!isActiveRef.current) return;
+
+      if (e.deltaY < 0 && scrollAccumRef.current <= 0) {
+        applyDelta(e.deltaY);
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+      applyDelta(e.deltaY);
+    };
+
+    const handleTouchStart = (e) => {
+      if (isActiveRef.current && e.touches.length > 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      touchStartYRef.current = null;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isActiveRef.current || e.touches.length === 0) return;
+
+      e.preventDefault();
+      const currentY = e.touches[0].clientY;
+      if (touchStartYRef.current === null) {
+        touchStartYRef.current = currentY;
+        return;
+      }
+      const deltaY = touchStartYRef.current - currentY;
+      touchStartYRef.current = currentY;
+      applyDelta(deltaY * 1.5);
     };
 
     const applyTransforms = (progress) => {
@@ -147,7 +201,7 @@ const ImmersiveZoom = ({ onComplete }) => {
         });
       }
 
-      const spreadAmount = 100;
+      const spreadAmount = window.innerWidth <= 768 ? 60 : 100;
       if (byRealRef.current) {
         gsap.set(byRealRef.current, {
           opacity: 1,
@@ -161,8 +215,9 @@ const ImmersiveZoom = ({ onComplete }) => {
         });
       }
       if (centerImageRef.current) {
-        const baseW = 240;
-        const baseH = 144;
+        const w = window.innerWidth;
+        const baseW = w <= 480 ? 120 : w <= 768 ? 160 : 240;
+        const baseH = w <= 480 ? 72 : w <= 768 ? 96 : 144;
         gsap.set(centerImageRef.current, {
           opacity: phase2Progress > 0 ? Math.min(1, phase2Progress * 1.2) : 0,
           width: baseW * phase2Progress,
@@ -193,6 +248,12 @@ const ImmersiveZoom = ({ onComplete }) => {
       if (!isReEntry) initialDeltasRef.current = null;
       document.body.style.overflow = "hidden";
       document.addEventListener("wheel", handleWheel, { passive: false, capture: true });
+      document.addEventListener("touchstart", handleTouchStart, { capture: true });
+      document.addEventListener("touchend", handleTouchEnd, { capture: true });
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+        capture: true,
+      });
 
       if (isReEntry) {
         scrollAccumRef.current = TOTAL_SCROLL;
@@ -220,7 +281,8 @@ const ImmersiveZoom = ({ onComplete }) => {
 
         const isReEntry = hasTriggeredRef.current;
 
-        if (entry.intersectionRatio >= 0.8 && !isActiveRef.current) {
+        const threshold = window.innerWidth <= 768 ? 0.6 : 0.8;
+        if (entry.intersectionRatio >= threshold && !isActiveRef.current) {
           if (isReEntry) {
             activate(true);
           } else {
@@ -228,7 +290,7 @@ const ImmersiveZoom = ({ onComplete }) => {
           }
         }
       },
-      { threshold: [0, 0.5, 0.8, 1] }
+      { threshold: [0, 0.5, 0.6, 0.8, 1] }
     );
 
     if (containerRef.current) {
@@ -239,6 +301,16 @@ const ImmersiveZoom = ({ onComplete }) => {
       observer.disconnect();
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       document.removeEventListener("wheel", handleWheel, { capture: true });
+      document.removeEventListener("touchstart", handleTouchStart, {
+        capture: true,
+      });
+      document.removeEventListener("touchend", handleTouchEnd, {
+        capture: true,
+      });
+      document.removeEventListener("touchmove", handleTouchMove, {
+        passive: false,
+        capture: true,
+      });
       document.body.style.overflow = "";
     };
   }, [onComplete]);
@@ -246,8 +318,8 @@ const ImmersiveZoom = ({ onComplete }) => {
   return (
     <section ref={containerRef} className="immersive-zoom">
       <div className="immersive-zoom__content">
-        {/* Scattered images */}
-        {SCATTERED_POSITIONS.map((pos, i) => (
+        <div className="immersive-zoom__scattered-wrap">
+          {SCATTERED_POSITIONS.map((pos, i) => (
           <div
             key={i}
             ref={(el) => (scatteredRefs.current[i] = el)}
@@ -262,6 +334,7 @@ const ImmersiveZoom = ({ onComplete }) => {
             <img src={IMAGES[i]} alt="" />
           </div>
         ))}
+        </div>
 
         {/* Center text */}
         <div className="immersive-zoom__text">
