@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import GreenBoy from "../../assets/images/peoples/greenBoy.jpeg";
-import PinkGirl from "../../assets/images/peoples/pinkGirl.jpeg";
-import AdultBoy from "../../assets/images/peoples/adultBoy.jpeg";
-import BlueGirl from "../../assets/images/peoples/blueGirl.jpeg";
+import GreenBoy from "@/assets/images/peoples/greenBoy.jpeg";
+import PinkGirl from "@/assets/images/peoples/pinkGirl.jpeg";
+import AdultBoy from "@/assets/images/peoples/adultBoy.jpeg";
+import BlueGirl from "@/assets/images/peoples/blueGirl.jpeg";
 
 import {
   RiChat3Fill,

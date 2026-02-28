@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
-import AsterickLoader from "../assets/asterisk.svg";
+import AsterickLoader from "@/assets/asterisk.svg";
 
 const Preloader = forwardRef(({ onComplete }, ref) => {
   const [progress, setProgress] = useState(0);

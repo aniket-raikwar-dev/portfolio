@@ -1,32 +1,32 @@
 import AutoScrollSlider from "./AutoScrollSlider";
-import Superior from "../../assets/images/logos/superior.jpeg";
-import Eye from "../../assets/images/logos/eye.jpeg";
-import Flower from "../../assets/images/logos/flower.jpeg";
-import Synder from "../../assets/images/logos/synder.jpeg";
-import Konpo from "../../assets/images/logos/koven.jpeg";
-import ORO from "../../assets/images/logos/oro.jpeg";
+import Superior from "@/assets/images/logos/superior.jpeg";
+import Eye from "@/assets/images/logos/eye.jpeg";
+import Flower from "@/assets/images/logos/flower.jpeg";
+import Synder from "@/assets/images/logos/synder.jpeg";
+import Konpo from "@/assets/images/logos/koven.jpeg";
+import ORO from "@/assets/images/logos/oro.jpeg";
 
-import Tokyo from "../../assets/images/logos/tokyo.jpeg";
-import Zeta from "../../assets/images/logos/zeta.jpeg";
-import Orando from "../../assets/images/logos/orando.jpeg";
-import Nasa from "../../assets/images/logos/nasa.jpeg";
-import DOcean from "../../assets/images/logos/digitalOcean.jpeg";
+import Tokyo from "@/assets/images/logos/tokyo.jpeg";
+import Zeta from "@/assets/images/logos/zeta.jpeg";
+import Orando from "@/assets/images/logos/orando.jpeg";
+import Nasa from "@/assets/images/logos/nasa.jpeg";
+import DOcean from "@/assets/images/logos/digitalOcean.jpeg";
 
-import Nike from "../../assets/images/logos/nike.jpeg";
-import Rad from "../../assets/images/logos/rad.jpeg";
-import SevenUps from "../../assets/images/logos/seven.jpeg";
-import Leanordo from "../../assets/images/logos/leanordo.jpeg";
-import Fuse from "../../assets/images/logos/fuse.jpeg";
+import Nike from "@/assets/images/logos/nike.jpeg";
+import Rad from "@/assets/images/logos/rad.jpeg";
+import SevenUps from "@/assets/images/logos/seven.jpeg";
+import Leanordo from "@/assets/images/logos/leanordo.jpeg";
+import Fuse from "@/assets/images/logos/fuse.jpeg";
 
-import Kakoam from "../../assets/images/logos/kakoam.jpeg";
-import Earth from "../../assets/images/logos/earth.jpeg";
-import Unified from "../../assets/images/logos/unified.jpeg";
-import Koven from "../../assets/images/logos/koven.jpeg";
-import Native from "../../assets/images/logos/native.jpeg";
+import Kakoam from "@/assets/images/logos/kakoam.jpeg";
+import Earth from "@/assets/images/logos/earth.jpeg";
+import Unified from "@/assets/images/logos/unified.jpeg";
+import Koven from "@/assets/images/logos/koven.jpeg";
+import Native from "@/assets/images/logos/native.jpeg";
 
-import Telescope from "../../assets/images/logos/telescope.jpeg";
-import BlueGirl from "../../assets/images/peoples/blueGirl.jpeg";
-import Frog from "../../assets/images/filters/frog.gif";
+import Telescope from "@/assets/images/logos/telescope.jpeg";
+import BlueGirl from "@/assets/images/peoples/blueGirl.jpeg";
+import Frog from "@/assets/images/filters/frog.gif";
 
 const ScrollableNames = () => {
   const firstRow = [
@@ -164,7 +164,6 @@ const ScrollableNames = () => {
       <AutoScrollSlider items={thirdRow} direction="right" duration={6} />
       <AutoScrollSlider items={fourthRow} direction="left" duration={8} />
       <AutoScrollSlider items={fifthRow} direction="right" duration={6} />
-      {/* <AutoScrollSlider items={data} direction="left" duration={5} /> */}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-import Img2 from "../../assets/images/carousel/img2.jpeg";
-import Img3 from "../../assets/images/carousel/img3.jpeg";
-import Img4 from "../../assets/images/carousel/img4.jpeg";
-import Img5 from "../../assets/images/carousel/img7.jpeg";
-import Img6 from "../../assets/images/carousel/img6.jpeg";
+import Img2 from "@/assets/images/carousel/img2.jpeg";
+import Img3 from "@/assets/images/carousel/img3.jpeg";
+import Img4 from "@/assets/images/carousel/img4.jpeg";
+import Img5 from "@/assets/images/carousel/img7.jpeg";
+import Img6 from "@/assets/images/carousel/img6.jpeg";
 
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&";
 

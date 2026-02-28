@@ -1,6 +1,6 @@
 import { RiArrowRightLine } from "react-icons/ri";
 
-import OnetaskImage from "../../assets/images/nav/onetask.png";
+import OnetaskImage from "@/assets/images/nav/onetask.png";
 
 const NAV_CARDS = [
   { id: 1, label: "ONETASK", image: OnetaskImage },

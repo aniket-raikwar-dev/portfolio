@@ -2,25 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Lenis from "lenis";
 
-import Dog from "../../assets/images/filters/dog.gif";
-import Cat from "../../assets/images/filters/cat.gif";
-import Gorilla from "../../assets/images/filters/gorilla.gif";
-import Cow from "../../assets/images/filters/cow.gif";
-import Panda from "../../assets/images/filters/panda.gif";
-import Sheep from "../../assets/images/filters/sheep.gif";
-import Squirrel from "../../assets/images/filters/Squirrel.gif";
-import Duck from "../../assets/images/filters/duck.gif";
-import Crow from "../../assets/images/filters/crow.gif";
-import Sparrow from "../../assets/images/filters/sparrow.gif";
-import Ostrich from "../../assets/images/filters/Ostrich.gif";
-import Crab from "../../assets/images/filters/crab.gif";
-import Jellyfish from "../../assets/images/filters/jellyfish.gif";
-import Clownfish from "../../assets/images/filters/fish.gif";
-import Whale from "../../assets/images/filters/whale.gif";
-import Octopus from "../../assets/images/filters/octopus.gif";
-import Chameleon from "../../assets/images/filters/chameleon.gif";
-import Frog from "../../assets/images/filters/frog.gif";
-import Snake from "../../assets/images/filters/snake.gif";
+import Dog from "@/assets/images/filters/dog.gif";
+import Cat from "@/assets/images/filters/cat.gif";
+import Gorilla from "@/assets/images/filters/gorilla.gif";
+import Cow from "@/assets/images/filters/cow.gif";
+import Panda from "@/assets/images/filters/panda.gif";
+import Sheep from "@/assets/images/filters/sheep.gif";
+import Squirrel from "@/assets/images/filters/Squirrel.gif";
+import Duck from "@/assets/images/filters/duck.gif";
+import Crow from "@/assets/images/filters/crow.gif";
+import Sparrow from "@/assets/images/filters/sparrow.gif";
+import Ostrich from "@/assets/images/filters/Ostrich.gif";
+import Crab from "@/assets/images/filters/crab.gif";
+import Jellyfish from "@/assets/images/filters/jellyfish.gif";
+import Clownfish from "@/assets/images/filters/fish.gif";
+import Whale from "@/assets/images/filters/whale.gif";
+import Octopus from "@/assets/images/filters/octopus.gif";
+import Chameleon from "@/assets/images/filters/chameleon.gif";
+import Frog from "@/assets/images/filters/frog.gif";
+import Snake from "@/assets/images/filters/snake.gif";
 
 const animals = [
   { id: 1, name: "Dog", type: "mammals", image: Dog },

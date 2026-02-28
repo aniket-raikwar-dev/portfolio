@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useRef, useState } from "react";
-import MarqueeAlongPath from "../components/ui/MarqueeAlongPath";
+import MarqueeAlongPath from "@/components/ui/MarqueeAlongPath";
 
 const generateSpiralPath = (turns = 3.5, cx = 250, cy = 250, spacing = 11.5) => {
   const points = [];

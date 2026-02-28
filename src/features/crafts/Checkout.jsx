@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import CheckoutIcon from "../../assets/images/checkout/checkout-icon.jpeg";
-import RedImage from "../../assets/images/logos/leanordo.jpeg";
-import GreenImage from "../../assets/images/logos/orando.jpeg";
-import YellowImage from "../../assets/images/logos/synder.jpeg";
-import VioletImage from "../../assets/images/logos/zeta.jpeg";
 import {
+  motion,
   AnimatePresence,
   useTransform,
   useMotionValue,
   animate,
 } from "framer-motion";
+import CheckoutIcon from "@/assets/images/checkout/checkout-icon.jpeg";
+import RedImage from "@/assets/images/logos/leanordo.jpeg";
+import GreenImage from "@/assets/images/logos/orando.jpeg";
+import YellowImage from "@/assets/images/logos/synder.jpeg";
+import VioletImage from "@/assets/images/logos/zeta.jpeg";
 import { RiArrowRightSLine } from "react-icons/ri";
 
 const itemList = [
@@ -67,8 +68,6 @@ const Checkout = () => {
       return updated;
     });
   };
-
-  console.log("checkoutItems: ", checkoutItems);
 
   return (
     <div className="craft-layout">
@@ -150,29 +149,6 @@ const Checkout = () => {
                       </div>
                     );
                   })}
-                  {/* {itemList.map((item, idx) => {
-                    const total = checkoutItems.size;
-                    const isFirst = idx === 0;
-                    const isLast = idx === total - 1;
-                    const isSelected = checkoutItems.has(item);
-                    return (
-                      <div
-                        key={item.id}
-                        className="selected-slot"
-                        style={{
-                          width: isSelected ? "25%" : "0px",
-                          background: item.color,
-                          borderTopLeftRadius: isFirst ? "20px" : "0",
-                          borderBottomLeftRadius: isFirst ? "20px" : "0",
-                          borderTopRightRadius: isLast ? "20px" : "0",
-                          borderBottomRightRadius: isLast ? "20px" : "0",
-                          transition: "width 0.4s ease-in-out",
-                        }}
-                      >
-                        {isSelected && <img src={item.img} alt="" />}
-                      </div>
-                    );
-                  })} */}
                 </div>
                 <div className="remove-btn" onClick={removeFromCheckoutBox}>
                   -

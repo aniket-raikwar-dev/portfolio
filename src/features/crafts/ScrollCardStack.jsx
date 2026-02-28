@@ -1,15 +1,15 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import Img1 from "../../assets/images/carousel/img1.jpeg";
-import Img2 from "../../assets/images/carousel/img2.jpeg";
-import Img3 from "../../assets/images/carousel/img3.jpeg";
-import Img4 from "../../assets/images/carousel/img4.jpeg";
-import Img5 from "../../assets/images/carousel/img5.jpeg";
-import Img6 from "../../assets/images/carousel/img6.jpeg";
-import Img7 from "../../assets/images/carousel/img7.jpeg";
-import Img8 from "../../assets/images/carousel/img8.jpeg";
-import Img9 from "../../assets/images/carousel/img9.jpeg";
+import Img1 from "@/assets/images/carousel/img1.jpeg";
+import Img2 from "@/assets/images/carousel/img2.jpeg";
+import Img3 from "@/assets/images/carousel/img3.jpeg";
+import Img4 from "@/assets/images/carousel/img4.jpeg";
+import Img5 from "@/assets/images/carousel/img5.jpeg";
+import Img6 from "@/assets/images/carousel/img6.jpeg";
+import Img7 from "@/assets/images/carousel/img7.jpeg";
+import Img8 from "@/assets/images/carousel/img8.jpeg";
+import Img9 from "@/assets/images/carousel/img9.jpeg";
 
 const CARDS = [
   { id: 1, image: Img1, label: "Image Carousel" },

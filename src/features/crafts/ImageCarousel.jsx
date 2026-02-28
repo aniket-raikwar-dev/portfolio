@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import Image1 from "../../assets/images/carousel/img1.jpeg";
-import Image2 from "../../assets/images/carousel/img2.jpeg";
-import Image3 from "../../assets/images/carousel/img3.jpeg";
-import Image4 from "../../assets/images/carousel/img4.jpeg";
-import Image5 from "../../assets/images/carousel/img5.jpeg";
-import Image6 from "../../assets/images/carousel/img6.jpeg";
-import Image7 from "../../assets/images/carousel/img7.jpeg";
-import Image8 from "../../assets/images/carousel/img8.jpeg";
-import Image9 from "../../assets/images/carousel/img9.jpeg";
+import Image1 from "@/assets/images/carousel/img1.jpeg";
+import Image2 from "@/assets/images/carousel/img2.jpeg";
+import Image3 from "@/assets/images/carousel/img3.jpeg";
+import Image4 from "@/assets/images/carousel/img4.jpeg";
+import Image5 from "@/assets/images/carousel/img5.jpeg";
+import Image6 from "@/assets/images/carousel/img6.jpeg";
+import Image7 from "@/assets/images/carousel/img7.jpeg";
+import Image8 from "@/assets/images/carousel/img8.jpeg";
+import Image9 from "@/assets/images/carousel/img9.jpeg";
 
 const dummyImages = [
   Image1,

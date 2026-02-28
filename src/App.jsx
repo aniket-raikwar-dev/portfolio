@@ -1,9 +1,8 @@
 import { useRef, useEffect, useState } from "react";
-import "./styles/global.scss";
+import "@/styles/global.scss";
 import { gsap } from "gsap";
-import Preloader from "./pages/Preloader";
-import IntroSplash from "./pages/IntroSplash";
-import { AppRouter } from "./routes";
+import { Preloader, IntroSplash } from "@/features/onboarding";
+import { AppRouter } from "@/routes/router";
 
 function App() {
   const loaderRef = useRef(null);

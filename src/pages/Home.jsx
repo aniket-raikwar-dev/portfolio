@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import HeroSection from "../components/layout/HeroSection";
-import ImmersiveZoom from "../components/home/ImmersiveZoom";
+import { HeroSection, ImmersiveZoom } from "@/features/home";
 
 const Home = () => {
   const [showNextSection, setShowNextSection] = useState(false);

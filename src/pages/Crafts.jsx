@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
-import ScrollCardStack from "../components/crafts/ScrollCardStack";
+import { ShowcaseLayout } from "@/features/crafts";
+
+/* ─── Original Crafts page (commented out, preserved for reference) ───
+import { ScrollCardStack } from "@/features/crafts";
 
 const Crafts = () => {
   return (
@@ -27,6 +29,11 @@ const Crafts = () => {
       <ScrollCardStack />
     </main>
   );
+};
+*/
+
+const Crafts = () => {
+  return <ShowcaseLayout />;
 };
 
 export default Crafts;

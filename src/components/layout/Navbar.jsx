@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useRouteTransition } from "../../context/RouteTransitionContext";
+import { useRouteTransition } from "@/context/RouteTransitionContext";
 
 const useLocalTime = (timeZone = "Asia/Kolkata") => {
   const [time, setTime] = useState(() =>
@@ -51,7 +51,7 @@ const useNagpurWeather = () => {
 
   return temp;
 };
-import AsterickLoader from "../../assets/asterisk.svg";
+import AsterickLoader from "@/assets/asterisk.svg";
 import { gsap } from "gsap";
 
 import {
@@ -59,8 +59,8 @@ import {
   RiMapPin2Fill,
   RiTimerFlashFill,
 } from "react-icons/ri";
-import ThemeToggle from "../ui/ThemeToggle";
-import { NavCard, NAV_CARDS } from "../ui/NavCard";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import { NavCard, NAV_CARDS } from "@/components/ui/NavCard";
 
 const NAV_ITEMS = [
   { id: "home", path: "/" },

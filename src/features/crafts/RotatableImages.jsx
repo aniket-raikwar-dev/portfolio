@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import Image1 from "../../assets/images/rotatables/image1.gif";
-import Image2 from "../../assets/images/rotatables/image2.gif";
-import Image3 from "../../assets/images/rotatables/image3.gif";
-import Image4 from "../../assets/images/rotatables/image4.gif";
-import Image5 from "../../assets/images/rotatables/image5.gif";
-import Image6 from "../../assets/images/rotatables/image6.gif";
-import Image7 from "../../assets/images/rotatables/image7.gif";
-import Image8 from "../../assets/images/rotatables/image8.gif";
-import Image9 from "../../assets/images/rotatables/image9.gif";
-import Image10 from "../../assets/images/rotatables/image10.jpeg";
+import Image1 from "@/assets/images/rotatables/image1.gif";
+import Image2 from "@/assets/images/rotatables/image2.gif";
+import Image3 from "@/assets/images/rotatables/image3.gif";
+import Image4 from "@/assets/images/rotatables/image4.gif";
+import Image5 from "@/assets/images/rotatables/image5.gif";
+import Image6 from "@/assets/images/rotatables/image6.gif";
+import Image7 from "@/assets/images/rotatables/image7.gif";
+import Image8 from "@/assets/images/rotatables/image8.gif";
+import Image9 from "@/assets/images/rotatables/image9.gif";
+import Image10 from "@/assets/images/rotatables/image10.jpeg";
 
 const RotatableImages = () => {
   const images = [
