@@ -15,10 +15,9 @@ const Typography = () => {
 
   return (
     <div className="craft-layout">
-      <div
-        className="typography-layout"
-        style={fontWeightValue > 650 ? { background: "#5675ff" } : {}}
-      >
+        <div
+          className={`typography-layout ${fontWeightValue > 650 ? "typography-layout--accent" : ""}`}
+        >
         <div className={getBoxClass()} style={{ alignItems: "flex-start" }}>
           <p>aniket</p>
         </div>
@@ -33,11 +32,8 @@ const Typography = () => {
         <div className={getBoxClass()}>
           <div className="typo-container">
             <h3
-              className="typo-text"
-              style={{
-                fontWeight: fontWeightValue,
-                color: fontWeightValue > 650 ? "#ffffff" : "",
-              }}
+              className={`typo-text ${fontWeightValue > 650 ? "typo-text--light" : ""}`}
+              style={{ fontWeight: fontWeightValue }}
             >
               a
             </h3>

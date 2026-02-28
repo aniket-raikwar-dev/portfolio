@@ -105,7 +105,7 @@ const Sidebar = () => {
         <div className="title flex justify-between items-center h-7">
           {!isCollapsed && <p>Messages</p>}
           <button
-            className="w-4.5 h-4.5 rounded-full bg-[#e6e6e6] flex items-center justify-center cursor-pointer"
+            className="sidebar-toggle-btn"
             onClick={toggleCollapsed}
           >
             {isCollapsed ? (
@@ -130,7 +130,7 @@ const Sidebar = () => {
         <div className="sidebar-list relative">
           {hoverIndex !== null && (
             <div
-              className="hover-indicator absolute left-0 w-full h-[40px] bg-gray-100 z-0 transition-all duration-200"
+              className="sidebar-hover-indicator"
               style={{ top: `${hoverIndex * 40}px` }}
             />
           )}
@@ -149,7 +149,7 @@ const Sidebar = () => {
                 {item.type === "action" && (
                   <div className="flex items-center justify-between w-full">
                     <div className="flex items-center gap-3">
-                      <div className="w-4.5 text-gray-500">{item.icon}</div>
+                      <div className="sidebar-item-icon">{item.icon}</div>
                       {!isCollapsed && (
                         <p className="item-text">{item.title}</p>
                       )}

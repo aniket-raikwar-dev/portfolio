@@ -105,7 +105,7 @@ const CraftsModal = ({ isOpen, onClose, selectedCraft }) => {
               <div className="crafts-modal__content">
                 {CraftComponent ? (
                   <div className="crafts-modal__craft">
-                    <CraftWrapper>
+                    <CraftWrapper fitViewport>
                       <CraftComponent />
                     </CraftWrapper>
                   </div>

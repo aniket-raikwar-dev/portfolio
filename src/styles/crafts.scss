@@ -2,8 +2,10 @@
 .craft-layout {
   width: 900px;
   height: 600px;
-  border: 0.5px solid #dfdfdf;
-  background-color: whitesmoke;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0.5px solid var(--craft-border);
+  background-color: var(--craft-bg);
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -12,7 +14,7 @@
 
   .heading {
     font-size: 72px;
-    color: #dfdfdf;
+    color: var(--craft-border);
     font-weight: 800;
     letter-spacing: 2px;
     font-family: "Switzer", sans-serif;
@@ -29,14 +31,14 @@
 
 .craft-sidebar-container {
   height: 600px;
+  max-height: 100%;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  background-color: var(--craft-surface);
+  box-shadow: var(--shadow-sm);
   transition: width 0.3s ease;
   padding: 15px 0px;
   position: absolute;
   overflow: hidden;
-  transition: width 0.3s ease;
   left: 0;
 
   .title {
@@ -44,6 +46,7 @@
     letter-spacing: 0.4px;
     font-size: 14px;
     padding: 0px 15px;
+    color: var(--craft-text);
     @include sidebar-text-animation;
   }
 
@@ -51,18 +54,20 @@
     margin-top: 10px;
     position: relative;
 
-    .hover-indicator {
+    .hover-indicator,
+    .sidebar-hover-indicator {
       position: absolute;
       left: 0;
       right: 0;
+      width: 100%;
       height: 40px;
-      background-color: #f0f0f0;
+      background-color: var(--craft-bg-alt);
       transition: top 0.3s ease;
       z-index: 1;
     }
 
     .active-item {
-      background-color: #f0f0f0;
+      background-color: var(--craft-bg-alt);
     }
 
     .sidebar-item {
@@ -74,9 +79,10 @@
       padding: 0px 15px;
       z-index: 10;
       height: 40px;
+      color: var(--craft-text);
 
       svg {
-        fill: rgb(200, 200, 200);
+        fill: var(--craft-text-muted);
       }
 
       .dotted {
@@ -88,7 +94,6 @@
         font-size: 13px;
         letter-spacing: 0px;
         font-weight: 400;
-        // margin-left: 10px;
       }
 
       .people-img {
@@ -103,7 +108,25 @@
           object-fit: cover;
         }
       }
+
+      .sidebar-item-icon {
+        width: 18px;
+        color: var(--craft-text-muted);
+      }
     }
+  }
+
+  .sidebar-toggle-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--craft-bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    color: var(--craft-text);
   }
 }
 
@@ -122,12 +145,12 @@
 }
 
 .scrollable::-webkit-scrollbar-thumb {
-  background: #e7e7e7;
+  background: var(--craft-border-light);
   border-radius: 10px;
 }
 
 .scrollable::-webkit-scrollbar-thumb:hover {
-  background: #ececec;
+  background: var(--craft-border);
 }
 
 .multi-filter-container {
@@ -138,7 +161,7 @@
     font-weight: 700;
     font-family: "Switzer", sans-serif;
     font-size: 24px;
-    color: #b0b0b0;
+    color: var(--craft-text-muted);
     letter-spacing: 0.5px;
     margin-bottom: 25px;
   }
@@ -149,35 +172,36 @@
     align-items: center;
     padding: 4px 20px;
     border-radius: 20px;
-    border: 0.5px solid #d7d7d7;
+    border: 0.5px solid var(--craft-border);
     cursor: pointer;
     font-size: 12px;
-    background-color: #fff;
+    background-color: var(--craft-surface);
+    color: var(--craft-text);
     font-weight: 500;
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #f3f6ff;
+      background-color: var(--craft-bg-alt);
     }
   }
 
   .filter-option--active {
-    color: #fff;
-    background-color: #1f1f1f;
+    color: var(--craft-surface);
+    background-color: var(--craft-text);
 
     &:hover {
-      background-color: #1f1f1f;
+      background-color: var(--craft-text);
     }
   }
 
   .reset {
-    color: #f74242;
-    border: 0.5px solid #f8b8b8;
-    background-color: #fff8f8;
+    color: var(--craft-error);
+    border: 0.5px solid rgba(239, 68, 68, 0.4);
+    background-color: var(--craft-error-bg);
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: #ffdada;
+      opacity: 0.9;
     }
   }
 
@@ -198,15 +222,16 @@
     .card {
       height: 210px;
       width: 100%;
-      background-color: #fff;
+      background-color: var(--craft-surface);
       border-radius: 10px;
-      border: 1px solid #e7e7e7;
+      border: 1px solid var(--craft-border-light);
       padding: 10px;
+      color: var(--craft-text);
 
       .img-box {
         height: 85%;
         width: 100%;
-        background-color: #4441f0;
+        background-color: var(--craft-accent);
         margin-bottom: 8px;
         border-radius: 8px;
 
@@ -232,14 +257,15 @@
   gap: 1px;
   width: 100%;
   height: 100%;
-  background-color: #ebebeb;
+  background-color: var(--craft-bg-alt);
 
   .box {
-    background: #f9f9f9;
+    background: var(--craft-surface);
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--craft-text);
 
     p {
       font-family: "Space Grotesk", sans-serif;
@@ -251,10 +277,18 @@
   }
 
   .box-blue {
-    background-color: #1138e2;
+    background-color: var(--craft-accent);
     p {
-      color: #fff;
+      color: var(--craft-surface);
     }
+  }
+
+  &.typography-layout--accent {
+    background-color: var(--craft-accent);
+  }
+
+  .typo-text--light {
+    color: var(--craft-surface) !important;
   }
   .typo-container {
     width: 300px;
@@ -269,7 +303,7 @@
   .typo-text {
     font-size: 430px;
     line-height: 1;
-    color: #1138e2;
+    color: var(--craft-accent);
     white-space: nowrap;
     padding-bottom: 80px;
   }
@@ -285,8 +319,8 @@
   position: relative;
 
   .pixel-box {
-    border: 0.5px solid #e7e7e7;
-    background: #fff;
+    border: 0.5px solid var(--craft-border-light);
+    background: var(--craft-surface);
     box-sizing: border-box;
     transition: background-color 0.8s ease;
   }
@@ -296,7 +330,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #e9e9e9;
+    color: var(--craft-border-light);
     font-size: 42px;
     font-weight: 700;
     letter-spacing: 3px;
@@ -305,7 +339,7 @@
   }
 
   .bg1 {
-    background-color: #4441f0;
+    background-color: var(--craft-accent);
   }
   .bg2 {
     background-color: #0cb784;
@@ -435,7 +469,7 @@
   position: relative;
   width: 95%;
   height: 50px;
-  background-color: #efefef;
+  background-color: var(--craft-bg-alt);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -446,7 +480,7 @@
   -webkit-appearance: none;
   width: 90%;
   height: 4px;
-  background: #e3e3e3;
+  background: var(--craft-border-light);
   border-radius: 2px;
   outline: none;
 }
@@ -465,8 +499,8 @@
   top: 14px;
   width: 60px;
   height: 22px;
-  background-color: #000000;
-  color: white;
+  background-color: var(--craft-text);
+  color: var(--craft-surface);
   letter-spacing: 0.2px;
   font-size: 10.5px;
   display: flex;
@@ -481,8 +515,8 @@
   top: -30px;
   width: 35px;
   height: 20px;
-  background-color: #e6e6e6;
-  color: #000;
+  background-color: var(--craft-bg-alt);
+  color: var(--craft-text);
   letter-spacing: 0.2px;
   font-size: 10.5px;
   display: flex;
@@ -521,20 +555,21 @@
   min-width: 220px;
   width: max-content;
   height: 70px;
-  background-color: #fff;
+  background-color: var(--craft-surface);
   border-radius: 40px;
   display: flex;
   align-items: center;
-  border: 1px solid #e7e7e7;
+  border: 1px solid var(--craft-border-light);
   padding: 5px;
   gap: 10px;
+  color: var(--craft-text);
 }
 
 .logo-img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #1138e2;
+  background-color: var(--craft-accent);
 
   img {
     width: 100%;
@@ -554,7 +589,7 @@
 .logo-para {
   font-size: 10px;
   margin: 0;
-  color: #666;
+  color: var(--craft-text-muted);
   text-transform: uppercase;
 }
 
@@ -594,19 +629,21 @@
 
 .circle-container {
   width: 700px;
+  max-width: 100%;
   height: 700px;
+  max-height: 100%;
   margin: 0 auto;
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--craft-surface);
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  box-shadow: var(--shadow-sm);
 }
 
 .rotating-circle {
   width: 130px;
   height: 130px;
-  background-color: rgb(17, 56, 226);
+  background-color: var(--craft-accent);
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -617,7 +654,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: var(--craft-surface);
   font-size: 16px;
   letter-spacing: 0.3px;
   font-weight: 800;
@@ -630,8 +667,8 @@
   left: 37%;
   width: 160px;
   height: 180px;
-  background-color: #eee;
-  border: 0.5px solid #d7d7d7;
+  background-color: var(--craft-bg-alt);
+  border: 0.5px solid var(--craft-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -649,7 +686,9 @@
 
 .checkout-container {
   width: 350px;
+  max-width: 100%;
   height: 500px;
+  max-height: 100%;
   padding: 10px;
 
   .checkout-items-row {
@@ -666,9 +705,8 @@
       border-radius: 15px;
       cursor: pointer;
       position: relative;
-      border: 0.5px solid #e7e7e7;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-        0 1px 2px -1px rgba(0, 0, 0, 0.1);
+      border: 0.5px solid var(--craft-border-light);
+      box-shadow: var(--shadow-sm);
 
       img {
         width: 100%;
@@ -684,21 +722,20 @@
         position: absolute;
         border-radius: 20px;
         display: flex;
-        border: 0.5px solid #d3d3d3;
+        border: 0.5px solid var(--craft-border);
         justify-content: center;
         align-items: center;
-        background-color: #fbfbfb;
+        background-color: var(--craft-surface);
         bottom: -4px;
         right: -4px;
-        color: #000000;
-
+        color: var(--craft-text);
         transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
 
       &:hover {
         .add-btn {
           transform: scale(1.3);
-          box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+          box-shadow: var(--shadow-md);
         }
       }
     }
@@ -710,9 +747,9 @@
     margin-top: 30px;
     border-radius: 35px;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    background-color: var(--craft-surface);
+    box-shadow: var(--shadow-sm);
+    color: var(--craft-text);
 
     .checkout-text {
       font-family: "Switzer", sans-serif;
@@ -734,7 +771,7 @@
       width: 70px;
       height: 70px;
       border-radius: 20px;
-      border: 0.5px solid #e7e7e7;
+      border: 0.5px solid var(--craft-border-light);
 
       img {
         width: 100%;
@@ -754,12 +791,12 @@
     .selected-items {
       display: flex;
       align-items: center;
-      border: 0.5px solid #d3d3d3;
+      border: 0.5px solid var(--craft-border);
       width: 80%;
       height: 40px;
       border-radius: 20px;
       overflow: hidden;
-      background-color: whitesmoke;
+      background-color: var(--craft-bg);
     }
 
     .selected-slot {
@@ -779,31 +816,33 @@
       justify-content: center;
       align-items: center;
       border-radius: 20px;
-      border: 0.5px solid #d3d3d3;
-      background-color: #fbfbfb;
+      border: 0.5px solid var(--craft-border);
+      background-color: var(--craft-surface);
       font-size: 16px;
       cursor: pointer;
+      color: var(--craft-text);
 
       &:hover {
-        background-color: #fff8f8;
+        background-color: var(--craft-error-bg);
       }
     }
   }
 
   .purchased-box {
     position: relative;
-    border: 1px solid #09a85b;
+    border: 1px solid var(--craft-success);
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     overflow: hidden;
+    color: var(--craft-text);
 
     .purchased-icon {
       width: 15px;
       height: 15px;
       border-radius: 10px;
-      background-color: #09a85b;
+      background-color: var(--craft-success);
     }
 
     p {
@@ -824,8 +863,7 @@
     padding: 2px;
     overflow: hidden;
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: var(--shadow-md);
 
     p {
       font-family: "Switzer", sans-serif;
@@ -844,8 +882,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 0.5px solid #d3d3d3;
-      background-color: #fff;
+      border: 0.5px solid var(--craft-border);
+      background-color: var(--craft-surface);
       position: absolute;
       left: 2px;
       top: 2px;
