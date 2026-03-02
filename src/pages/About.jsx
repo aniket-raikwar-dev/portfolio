@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -11,6 +11,9 @@ import {
   RiCss3Line,
   RiNextjsLine,
   RiBearSmileLine,
+  RiDoubleQuotesL,
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
 } from "react-icons/ri";
 import {
   SiTypescript,
@@ -40,6 +43,7 @@ import {
   SiSupabase,
   SiExpress,
   SiJsonwebtokens,
+  SiAmazonwebservices,
 } from "react-icons/si";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -177,24 +181,82 @@ const SKILL_ICONS = [
   // Row 4 (40-49, center 43-46 reserved)
   { icon: SiGit, label: "Git", color: "#f05032", cell: 40 },
   { icon: SiFirebase, label: "Firebase", color: "#ffca28", cell: 42 },
-  { icon: SiSupabase, label: "Supabase", color: "#3fcf8e", cell: 47 },
+  { icon: SiSupabase, label: "Supabase", color: "#3fcf8e", cell: 48 },
   { icon: SiJsonwebtokens, label: "JWT", color: "#d63aff", cell: 49 },
   // Row 5 (50-59)
-  { icon: SiStorybook, label: "Storybook", color: "#ff4785", cell: 51 },
-  { icon: SiJira, label: "Jira", color: "#0052cc", cell: 53 },
-  { icon: SiTestinglibrary, label: "Testing Lib", color: "#e33332", cell: 55 },
-  { icon: SiGithub, label: "GitHub", color: "#888888", cell: 57 },
-  { icon: SiFramer, label: "Framer", color: "#0055ff", cell: 59 },
+  { icon: SiAmazonwebservices, label: "AWS", color: "#ff9900", cell: 50 },
+  { icon: SiStorybook, label: "Storybook", color: "#ff4785", cell: 52 },
+  { icon: SiJira, label: "Jira", color: "#0052cc", cell: 54 },
+  { icon: SiTestinglibrary, label: "Testing Lib", color: "#e33332", cell: 56 },
+  { icon: SiGithub, label: "GitHub", color: "#888888", cell: 58 },
   // Row 6 (60-69)
   { icon: SiFigma, label: "Figma", color: "#f24e1e", cell: 60 },
-  { icon: SiAntdesign, label: "Ant Design", color: "#0170fe", cell: 62 },
-  { icon: SiVercel, label: "Vercel", color: "#888888", cell: 64 },
+  { icon: SiFramer, label: "Framer", color: "#0055ff", cell: 61 },
+  { icon: SiAntdesign, label: "Ant Design", color: "#0170fe", cell: 63 },
+  { icon: SiVercel, label: "Vercel", color: "#888888", cell: 65 },
   { icon: SiPostman, label: "Postman", color: "#ff6c37", cell: 66 },
   { icon: SiWebpack, label: "Webpack", color: "#8dd6f9", cell: 68 },
   { icon: SiNpm, label: "npm", color: "#cb3837", cell: 69 },
 ];
 
 const skillMap = new Map(SKILL_ICONS.map((s) => [s.cell, s]));
+
+const TESTIMONIALS = [
+  {
+    id: 1,
+    quote:
+      "Aniket is one of those rare engineers who genuinely cares about the craft. His attention to micro-interactions and performance optimization took our product experience to another level.",
+    name: "Rahul Sharma",
+    role: "Engineering Manager",
+    company: "Zinnia",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Rahul",
+  },
+  {
+    id: 2,
+    quote:
+      "Working with Aniket was a game-changer for our frontend. He rebuilt our entire component library and reduced our bundle size by 40%. Incredibly fast, incredibly thorough.",
+    name: "Priya Deshmukh",
+    role: "Product Lead",
+    company: "York IE",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Priya",
+  },
+  {
+    id: 3,
+    quote:
+      "What impressed me most was how quickly Aniket shipped complex features without compromising code quality. His React and TypeScript expertise is top-tier.",
+    name: "Arjun Mehta",
+    role: "Senior Developer",
+    company: "Swiggy",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Arjun",
+  },
+  {
+    id: 4,
+    quote:
+      "Aniket has a designer's eye with an engineer's brain. He turned our Figma mockups into pixel-perfect, buttery-smooth interfaces every single time.",
+    name: "Sneha Kulkarni",
+    role: "Design Lead",
+    company: "Freelance",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Sneha",
+  },
+  {
+    id: 5,
+    quote:
+      "His ability to mentor junior developers while delivering on tight deadlines is remarkable. Aniket elevates every team he joins.",
+    name: "Vikram Patel",
+    role: "CTO",
+    company: "Rhym",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Vikram",
+  },
+  {
+    id: 6,
+    quote:
+      "From architecting micro-frontends to obsessing over lighthouse scores — Aniket brings a level of ownership that's hard to find. He doesn't just write code, he builds products.",
+    name: "Deepika Nair",
+    role: "VP of Engineering",
+    company: "Fintech Startup",
+    avatar: "https://api.dicebear.com/9.x/notionists/svg?seed=Deepika",
+  },
+];
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -210,6 +272,9 @@ const About = () => {
   const expItemsRef = useRef([]);
   const skillGridRef = useRef(null);
   const skillSectionRef = useRef(null);
+  const testimonialSectionRef = useRef(null);
+  const [activeTesti, setActiveTesti] = useState(0);
+  const hireSectionRef = useRef(null);
   const lenisRef = useRef(null);
 
   useEffect(() => {
@@ -446,10 +511,105 @@ const About = () => {
           },
         });
       }
+
+      // Testimonials section entrance
+      if (testimonialSectionRef.current) {
+        gsap.from(".about-testi__heading", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: testimonialSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        gsap.from(".about-testi__subtitle", {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: testimonialSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        gsap.from(".about-testi__carousel", {
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: testimonialSectionRef.current,
+            start: "top 65%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // "Why hire me" section
+      if (hireSectionRef.current) {
+        gsap.from(".about-hire__heading", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: hireSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        const hirePoints = hireSectionRef.current.querySelectorAll(".about-hire__point");
+        hirePoints.forEach((point, i) => {
+          gsap.from(point, {
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: point,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
+  const [testiPerPage, setTestiPerPage] = useState(
+    typeof window !== "undefined" && window.innerWidth <= 768 ? 1 : 3
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 768px)");
+    const onChange = (e) => {
+      setTestiPerPage(e.matches ? 1 : 3);
+      setActiveTesti(0);
+    };
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  const maxTestiOffset = TESTIMONIALS.length - testiPerPage;
+
+  const handleTestiPrev = () => {
+    setActiveTesti((prev) => Math.max(0, prev - 1));
+  };
+
+  const handleTestiNext = () => {
+    setActiveTesti((prev) => Math.min(maxTestiOffset, prev + 1));
+  };
 
   const headlineLines = [
     [
@@ -642,6 +802,133 @@ const About = () => {
               <span className="skill-grid__tagline-hl">scalable</span>{" "}
               products.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-testi" ref={testimonialSectionRef}>
+        <div className="about-testi__header">
+          <h2 className="about-testi__heading">
+            <span className="about-testi__heading-bold">What people</span>{" "}
+            <span className="about-testi__heading-italic">say</span>
+          </h2>
+          <p className="about-testi__subtitle">
+            Kind words from colleagues, managers &amp; collaborators
+            I&apos;ve had the pleasure of working with.
+          </p>
+        </div>
+
+        <div className="about-testi__carousel">
+          <div className="about-testi__window">
+            <div
+              className="about-testi__slider"
+              style={{
+                transform:
+                  testiPerPage === 1
+                    ? `translateX(calc(-${activeTesti} * (100% + 20px)))`
+                    : `translateX(calc(-${activeTesti} * (33.333% + 9.333px)))`,
+              }}
+            >
+              {TESTIMONIALS.map((t) => (
+                <article key={t.id} className="testi-card">
+                  <RiDoubleQuotesL className="testi-card__quote-icon" />
+                  <blockquote className="testi-card__quote">
+                    {t.quote}
+                  </blockquote>
+                  <div className="testi-card__author">
+                    <img
+                      className="testi-card__avatar"
+                      src={t.avatar}
+                      alt={t.name}
+                    />
+                    <div className="testi-card__meta">
+                      <span className="testi-card__name">{t.name}</span>
+                      <span className="testi-card__role">
+                        {t.role}, {t.company}
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="about-testi__controls">
+            <div className="about-testi__dots">
+              {Array.from({ length: maxTestiOffset + 1 }, (_, i) => (
+                <span
+                  key={i}
+                  className={`about-testi__dot${i === activeTesti ? " about-testi__dot--active" : ""}`}
+                  onClick={() => setActiveTesti(i)}
+                />
+              ))}
+            </div>
+
+            <div className="about-testi__arrows">
+              <button
+                className="about-testi__arrow-btn"
+                onClick={handleTestiPrev}
+                disabled={activeTesti === 0}
+                aria-label="Previous testimonial"
+              >
+                <RiArrowLeftSLine />
+              </button>
+              <button
+                className="about-testi__arrow-btn"
+                onClick={handleTestiNext}
+                disabled={activeTesti >= maxTestiOffset}
+                aria-label="Next testimonial"
+              >
+                <RiArrowRightSLine />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="about-hire" ref={hireSectionRef}>
+        <div className="about-hire__inner">
+          <h2 className="about-hire__heading">
+            <span className="about-hire__heading-bold">Why must you</span>{" "}
+            <span className="about-hire__heading-italic">hire me?</span>
+          </h2>
+
+          <div className="about-hire__points">
+            <div className="about-hire__point">
+              <span className="about-hire__arrow">&#8627;</span>
+              <p className="about-hire__text">
+                Well, hiring me comes with a complimentary package of unparalleled wit, a knack for
+                turning challenges into well, still challenges but with a bit of humour, and a
+                passion for delighting with everything I build.
+              </p>
+            </div>
+
+            <div className="about-hire__point">
+              <span className="about-hire__arrow">&#8627;</span>
+              <p className="about-hire__text">
+                Jokes aside, I&apos;ve worked among the leading engineering teams in India. I also
+                have experience of working in various sectors ranging from food-tech, ed-tech to
+                fin-tech — shipping production-grade UIs that millions of users interact with daily.
+              </p>
+            </div>
+
+            <div className="about-hire__point">
+              <span className="about-hire__arrow">&#8627;</span>
+              <p className="about-hire__text">
+                I am a quick learner, can work independently and I love a challenge. Whether it&apos;s
+                picking up a new framework over the weekend or debugging a gnarly race condition at
+                2&nbsp;AM — I thrive under pressure and ship on time.
+              </p>
+            </div>
+
+            <div className="about-hire__point">
+              <span className="about-hire__arrow">&#8627;</span>
+              <p className="about-hire__text">
+                Just to remind you, I am a Full-stack engineer with expertise in React, TypeScript,
+                and Node.js, specializing in building scalable, high-performance applications with
+                clean architecture and pixel-perfect interfaces.
+              </p>
+            </div>
           </div>
         </div>
       </section>
