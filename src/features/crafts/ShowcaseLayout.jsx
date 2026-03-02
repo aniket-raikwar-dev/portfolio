@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { RiArrowRightLine, RiArrowRightUpLine, RiCloseLine } from "react-icons/ri";
+import { RiArrowRightLine, RiArrowRightUpLine, RiCloseLine, RiHeartLine } from "react-icons/ri";
 import Lenis from "lenis";
 import AsteriskIcon from "@/assets/asterisk.svg";
 import { CRAFTS_CONFIG } from "./craftsConfig";
@@ -104,10 +104,15 @@ const CraftsModal = ({ isOpen, onClose, selectedCraft }) => {
               </button>
               <div className="crafts-modal__content">
                 {CraftComponent ? (
-                  <div className="crafts-modal__craft">
-                    <CraftWrapper fitViewport>
-                      <CraftComponent />
-                    </CraftWrapper>
+                  <div className="crafts-modal__craft-wrap">
+                    <div className="crafts-modal__craft">
+                      <CraftWrapper fitViewport>
+                        <CraftComponent />
+                      </CraftWrapper>
+                    </div>
+                    <p className="crafts-modal__tagline" aria-hidden>
+                      crafted with care <RiHeartLine className="crafts-modal__tagline-icon" size={18} aria-hidden /> & curiosity
+                    </p>
                   </div>
                 ) : (
                   <p className="crafts-modal__placeholder">Select a craft to view</p>
@@ -201,15 +206,17 @@ const ShowcaseLayout = () => {
             ease: [0.25, 0.46, 0.45, 0.94],
           }}
         >
-          <div className="showcase-header__title-row">
-            <img
-              src={AsteriskIcon}
-              alt=""
-              className="showcase-header__icon"
-              aria-hidden
-            />
-            <h1 className="showcase-header__heading">Showcase</h1>
+          <div className="showcase-header__inner">
             <span className="showcase-header__pill">crafts</span>
+            <div className="showcase-header__title-row">
+              <img
+                src={AsteriskIcon}
+                alt=""
+                className="showcase-header__icon"
+                aria-hidden
+              />
+              <h1 className="showcase-header__heading">Showcase</h1>
+            </div>
           </div>
         </motion.header>
 

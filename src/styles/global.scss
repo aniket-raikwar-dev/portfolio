@@ -1,5 +1,6 @@
 @import url("./variables.scss");
 @import url("./crafts.scss");
+@import url("./about.scss");
 
 * {
   margin: 0px;
@@ -843,21 +844,28 @@ body {
 
 .showcase-header {
   position: relative;
-  text-align: center;
   margin-bottom: 56px;
   width: 85vw;
   max-width: 85vw;
+  display: flex;
+  justify-content: center;
+}
+
+.showcase-header__inner {
+  position: relative;
+  display: inline-block;
 }
 
 .showcase-header__pill {
-  align-self: flex-start;
-  margin-left: 20px;
-  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: "Switzer", sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-weight: 600;
   color: #fff;
-  background: #c084fc;
-  padding: 12px 24px;
+  background: #ff63ff;
+  padding: 6px 14px;
   border-radius: 999px;
   text-transform: lowercase;
   letter-spacing: 0.02em;
@@ -869,10 +877,11 @@ body {
   justify-content: center;
   gap: clamp(12px, 2vw, 20px);
   flex-wrap: wrap;
+  padding-top: 2.5rem;
 }
 
 [data-theme="dark"] .showcase-header__pill {
-  background: #c084fc;
+  background: #ff63ff;
   color: #fff;
 }
 
@@ -1189,8 +1198,6 @@ body {
 @media (max-width: 900px) {
   .showcase-grid-new {
     grid-template-columns: 1fr;
-    max-width: 400px;
-    margin: 0 auto;
   }
 }
 
@@ -1201,10 +1208,6 @@ body {
     width: 94vw;
     max-width: 94vw;
   }
-
-  .showcase-grid-new {
-    max-width: 400px;
-  }
 }
 
 @media (max-width: 375px) {
@@ -1213,10 +1216,6 @@ body {
   .showcase-grid-new {
     width: 96vw;
     max-width: 96vw;
-  }
-
-  .showcase-grid-new {
-    max-width: 400px;
   }
 }
 
@@ -1245,14 +1244,51 @@ body {
   position: absolute;
   inset: 0;
   background: var(--color-bg-primary);
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crafts-modal__craft-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.crafts-modal__craft-wrap .crafts-modal__craft {
+  width: auto;
+}
+
+.crafts-modal__tagline {
+  margin: 0;
+  font-family: "Switzer", "Space Grotesk", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 700;
+  text-transform: lowercase;
+  color: var(--color-text-muted);
+  opacity: 0.4;
+  pointer-events: none;
+
+  .crafts-modal__tagline-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 4px;
+    opacity: 0.6;
+  }
 }
 
 .crafts-modal__inner {
   position: relative;
+  flex: 1;
   width: 100%;
   min-height: 100%;
-  padding: 120px 5vw 80px;
+  padding: 80px 5vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .crafts-modal__close {
@@ -1287,21 +1323,23 @@ body {
 
 .crafts-modal__content {
   max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .crafts-modal__placeholder {
   font-family: "Cabinet Grotesk", "Switzer", sans-serif;
   font-size: 1.25rem;
   color: var(--color-text-muted);
+  text-align: center;
 }
 
 .crafts-modal__craft {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 200px);
-  padding: 24px 0 80px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -1313,16 +1351,19 @@ body {
 }
 
 @media (max-width: 768px) {
-  .crafts-modal__craft {
-    min-height: calc(100vh - 160px);
-    padding: 16px 0 60px;
+  .crafts-modal__inner {
+    padding: 60px 4vw;
   }
+
 }
 
 @media (max-width: 480px) {
-  .crafts-modal__craft {
-    min-height: calc(100vh - 140px);
-    padding: 12px 0 48px;
+  .crafts-modal__inner {
+    padding: 48px 3vw;
+  }
+
+  .crafts-modal__craft-wrap {
+    gap: 16px;
   }
 }
 
