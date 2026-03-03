@@ -14,12 +14,7 @@ import {
   RiDoubleQuotesL,
   RiArrowLeftSLine,
   RiArrowRightSLine,
-  RiGamepadLine,
-  RiMusic2Line,
-  RiBookOpenLine,
-  RiCameraLine,
-  RiLightbulbLine,
-  RiCupLine,
+  RiCheckboxCircleFill,
 } from "react-icons/ri";
 import {
   SiTypescript,
@@ -41,7 +36,6 @@ import {
   SiFramer,
   SiWebpack,
   SiAntdesign,
-  SiPnpm,
   SiTestinglibrary,
   SiNodedotjs,
   SiMongodb,
@@ -50,6 +44,9 @@ import {
   SiExpress,
   SiJsonwebtokens,
   SiAmazonwebservices,
+  SiAmazon,
+  SiBrevo,
+  SiRazorpay,
 } from "react-icons/si";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -155,7 +152,6 @@ const GRID_COLS = 10;
 const GRID_ROWS = 7;
 const TOTAL_CELLS = GRID_COLS * GRID_ROWS;
 
-// Center 4x3 block (rows 2-4, cols 3-6) reserved for overlay text
 const CENTER_CELLS = new Set([
   23, 24, 25, 26,
   33, 34, 35, 36,
@@ -163,46 +159,46 @@ const CENTER_CELLS = new Set([
 ]);
 
 const SKILL_ICONS = [
-  // Row 0 (0-9)
-  { icon: RiHtml5Line, label: "HTML5", color: "#e34f26", cell: 0 },
-  { icon: RiReactjsLine, label: "React", color: "#61dafb", cell: 2 },
-  { icon: SiTypescript, label: "TypeScript", color: "#3178c6", cell: 4 },
-  { icon: RiJavascriptLine, label: "JavaScript", color: "#f7df1e", cell: 6 },
+  // Row 0 — heavy: core stack dominates the top
+  { icon: RiReactjsLine, label: "React", color: "#61dafb", cell: 0 },
+  { icon: SiTypescript, label: "TypeScript", color: "#3178c6", cell: 2 },
+  { icon: RiJavascriptLine, label: "JavaScript", color: "#f7df1e", cell: 4 },
+  { icon: SiVite, label: "Vite", color: "#bd34fe", cell: 5 },
+  { icon: RiNextjsLine, label: "Next.js", color: "#888888", cell: 7 },
   { icon: SiNodedotjs, label: "Node.js", color: "#339933", cell: 8 },
-  // Row 1 (10-19)
-  { icon: SiVite, label: "Vite", color: "#bd34fe", cell: 10 },
-  { icon: RiNextjsLine, label: "Next.js", color: "#888888", cell: 12 },
-  { icon: SiRedux, label: "Redux", color: "#764abc", cell: 14 },
-  { icon: SiExpress, label: "Express", color: "#888888", cell: 16 },
+  { icon: SiRedux, label: "Redux", color: "#764abc", cell: 9 },
+  // Row 1 — strong: frameworks & styling
+  { icon: SiTailwindcss, label: "Tailwind", color: "#06b6d4", cell: 10 },
+  { icon: SiSass, label: "SCSS", color: "#cc6699", cell: 12 },
+  { icon: RiHtml5Line, label: "HTML5", color: "#e34f26", cell: 14 },
+  { icon: RiCss3Line, label: "CSS3", color: "#1572b6", cell: 16 },
+  { icon: SiExpress, label: "Express", color: "#888888", cell: 18 },
   { icon: SiShadcnui, label: "Shadcn", color: "#888888", cell: 19 },
-  // Row 2 (20-29, center 23-26 reserved)
-  { icon: SiTailwindcss, label: "Tailwind", color: "#06b6d4", cell: 20 },
-  { icon: SiSass, label: "SCSS", color: "#cc6699", cell: 22 },
-  { icon: RiCss3Line, label: "CSS3", color: "#1572b6", cell: 29 },
-  // Row 3 (30-39, center 33-36 reserved)
-  { icon: SiWebcomponentsdotorg, label: "Web Comp.", color: "#29abe2", cell: 30 },
-  { icon: SiGraphql, label: "GraphQL", color: "#e10098", cell: 32 },
-  { icon: SiMongodb, label: "MongoDB", color: "#47a248", cell: 37 },
-  { icon: RiBearSmileLine, label: "Zustand", color: "#443e38", cell: 39 },
-  // Row 4 (40-49, center 43-46 reserved)
+  // Row 2 — moderate (center reserved 23-26)
+  { icon: SiWebcomponentsdotorg, label: "Web Comp.", color: "#29abe2", cell: 20 },
+  { icon: SiGraphql, label: "GraphQL", color: "#e10098", cell: 22 },
+  { icon: RiBearSmileLine, label: "Zustand", color: "#443e38", cell: 28 },
+  // Row 3 — moderate (center reserved 33-36)
+  { icon: SiMongodb, label: "MongoDB", color: "#47a248", cell: 30 },
+  { icon: SiFirebase, label: "Firebase", color: "#ffca28", cell: 37 },
+  { icon: SiSupabase, label: "Supabase", color: "#3fcf8e", cell: 39 },
+  // Row 4 — lighter (center reserved 43-46)
   { icon: SiGit, label: "Git", color: "#f05032", cell: 40 },
-  { icon: SiFirebase, label: "Firebase", color: "#ffca28", cell: 42 },
-  { icon: SiSupabase, label: "Supabase", color: "#3fcf8e", cell: 48 },
-  { icon: SiJsonwebtokens, label: "JWT", color: "#d63aff", cell: 49 },
-  // Row 5 (50-59)
-  { icon: SiAmazonwebservices, label: "AWS", color: "#ff9900", cell: 50 },
-  { icon: SiStorybook, label: "Storybook", color: "#ff4785", cell: 52 },
+  { icon: SiAmazonwebservices, label: "AWS", color: "#ff9900", cell: 42 },
+  { icon: SiJsonwebtokens, label: "JWT", color: "#d63aff", cell: 48 },
+  // Row 5 — sparse: tooling
+  { icon: SiStorybook, label: "Storybook", color: "#ff4785", cell: 51 },
   { icon: SiJira, label: "Jira", color: "#0052cc", cell: 54 },
-  { icon: SiTestinglibrary, label: "Testing Lib", color: "#e33332", cell: 56 },
-  { icon: SiGithub, label: "GitHub", color: "#888888", cell: 58 },
-  // Row 6 (60-69)
-  { icon: SiFigma, label: "Figma", color: "#f24e1e", cell: 60 },
-  { icon: SiFramer, label: "Framer", color: "#0055ff", cell: 61 },
-  { icon: SiAntdesign, label: "Ant Design", color: "#0170fe", cell: 63 },
-  { icon: SiVercel, label: "Vercel", color: "#888888", cell: 65 },
-  { icon: SiPostman, label: "Postman", color: "#ff6c37", cell: 66 },
-  { icon: SiWebpack, label: "Webpack", color: "#8dd6f9", cell: 68 },
-  { icon: SiNpm, label: "npm", color: "#cb3837", cell: 69 },
+  { icon: SiTestinglibrary, label: "Testing Lib", color: "#e33332", cell: 57 },
+  { icon: SiGithub, label: "GitHub", color: "#888888", cell: 59 },
+  // Row 6 — sparse: design & misc
+  { icon: SiFigma, label: "Figma", color: "#f24e1e", cell: 61 },
+  { icon: SiFramer, label: "Framer", color: "#0055ff", cell: 63 },
+  { icon: SiPostman, label: "Postman", color: "#ff6c37", cell: 65 },
+  { icon: SiAntdesign, label: "Ant Design", color: "#0170fe", cell: 66 },
+  { icon: SiVercel, label: "Vercel", color: "#888888", cell: 68 },
+  { icon: SiWebpack, label: "Webpack", color: "#8dd6f9", cell: 69 },
+  { icon: SiNpm, label: "npm", color: "#cb3837", cell: 60 },
 ];
 
 const skillMap = new Map(SKILL_ICONS.map((s) => [s.cell, s]));
@@ -264,6 +260,33 @@ const TESTIMONIALS = [
   },
 ];
 
+const PERSONAL_IMAGES = [
+  { src: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop", label: "Gaming" },
+  { src: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&h=300&fit=crop", label: "Music" },
+  { src: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop", label: "Chai" },
+  { src: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop", label: "Learning" },
+  { src: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop", label: "Side Projects" },
+  { src: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=400&h=300&fit=crop", label: "Photography" },
+];
+
+const RADAR_COMPANIES = [
+  { name: "Amazon", icon: SiAmazon, color: "#FF9900", status: "I" },
+  { name: "Zinnia", favicon: "zinnia.com", status: "W" },
+  { name: "Google", svg: "https://svgl.app/library/google.svg", status: "I" },
+  { name: "York IE", logo: yorkieLogo, status: "W" },
+  { name: "Microsoft", svg: "https://svgl.app/library/microsoft.svg", status: "I" },
+  { name: "Razorpay", icon: SiRazorpay, color: "#0C2451", status: "I" },
+  { name: "Pedals Up", favicon: "pedalsup.com", status: "W" },
+  { name: "Stripe", svg: "https://svgl.app/library/stripe.svg", status: "I" },
+  { name: "Mindtickle", favicon: "mindtickle.com", status: "I" },
+  { name: "Uber", svg: "https://svgl.app/library/uber_light.svg", status: "I", darkInvert: true },
+  { name: "Rhym IO", favicon: "rhym.io", status: "W" },
+  { name: "Atlassian", svg: "https://svgl.app/library/atlassian.svg", status: "I" },
+  { name: "Brevo", icon: SiBrevo, color: "#0B996E", status: "I" },
+  { name: "BrowserStack", favicon: "browserstack.com", status: "I" },
+  { name: "Zepto", favicon: "zeptonow.com", status: "I" },
+];
+
 const About = () => {
   const sectionRef = useRef(null);
   const greetRef = useRef(null);
@@ -273,6 +296,8 @@ const About = () => {
   const imageFrameRef = useRef(null);
   const marqueeTrackRef = useRef(null);
   const personalSectionRef = useRef(null);
+  const personalTrackRef = useRef(null);
+  const radarSectionRef = useRef(null);
   const workSectionRef = useRef(null);
   const timelineRef = useRef(null);
   const timelineLineRef = useRef(null);
@@ -337,7 +362,7 @@ const About = () => {
         "-=0.7"
       );
 
-      gsap.to(marqueeTrackRef.current, {
+      const marqueeTween = gsap.to(marqueeTrackRef.current, {
         xPercent: -50,
         duration: 25,
         ease: "none",
@@ -350,6 +375,15 @@ const About = () => {
         duration: 0.7,
         delay: 1.8,
         ease: "power3.out",
+      });
+
+      ScrollTrigger.create({
+        trigger: ".about-marquee",
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => {
+          marqueeTween.timeScale(1 + self.progress * 3);
+        },
       });
 
       // Personal / Beyond code section
@@ -366,7 +400,7 @@ const About = () => {
           },
         });
 
-        gsap.from(".about-personal__subtitle", {
+        gsap.from(".about-personal__text", {
           y: 30,
           opacity: 0,
           duration: 0.7,
@@ -379,20 +413,33 @@ const About = () => {
           },
         });
 
-        const bentoCards = personalSectionRef.current.querySelectorAll(".bento-card");
-        gsap.from(bentoCards, {
-          y: 40,
-          opacity: 0,
-          scale: 0.95,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: personalSectionRef.current,
-            start: "top 60%",
-            toggleActions: "play none none reverse",
-          },
-        });
+        if (personalTrackRef.current) {
+          gsap.to(personalTrackRef.current, {
+            xPercent: -30,
+            ease: "none",
+            scrollTrigger: {
+              trigger: personalSectionRef.current,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: 0.8,
+            },
+          });
+
+          const imgs = personalTrackRef.current.querySelectorAll(".personal-img");
+          gsap.from(imgs, {
+            rotateY: 25,
+            opacity: 0,
+            scale: 0.9,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: personalSectionRef.current,
+              start: "top 65%",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
       }
 
       // Work section heading reveal
@@ -486,6 +533,7 @@ const About = () => {
             },
           });
         }
+
       });
       // Skill section heading
       if (skillSectionRef.current) {
@@ -597,6 +645,49 @@ const About = () => {
           scrollTrigger: {
             trigger: testimonialSectionRef.current,
             start: "top 65%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
+
+      // Radar companies section
+      if (radarSectionRef.current) {
+        gsap.from(".about-radar__heading", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: radarSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        gsap.from(".about-radar__subtitle", {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: radarSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        const radarItems = radarSectionRef.current.querySelectorAll(".radar-item");
+        gsap.from(radarItems, {
+          y: 30,
+          opacity: 0,
+          scale: 0.85,
+          duration: 0.5,
+          stagger: { each: 0.06, from: "random" },
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: radarSectionRef.current,
+            start: "top 60%",
             toggleActions: "play none none reverse",
           },
         });
@@ -737,75 +828,6 @@ const About = () => {
         </div>
       </div>
 
-      <section className="about-personal" ref={personalSectionRef}>
-        <div className="about-personal__inner">
-          <h2 className="about-personal__heading">
-            <span className="about-personal__heading-bold">Beyond</span>{" "}
-            <span className="about-personal__heading-italic">the code</span>
-          </h2>
-          <p className="about-personal__subtitle">
-            When I&apos;m not pushing pixels or shipping features, here&apos;s
-            what keeps me going.
-          </p>
-
-          <div className="bento-grid">
-            <div className="bento-card bento-card--wide">
-              <RiGamepadLine className="bento-card__icon" />
-              <h3 className="bento-card__title">Gaming</h3>
-              <p className="bento-card__text">
-                Strategy &amp; RPG games are my go-to for unwinding.
-                Currently on a Valorant grind.
-              </p>
-            </div>
-
-            <div className="bento-card">
-              <RiMusic2Line className="bento-card__icon" />
-              <h3 className="bento-card__title">Music</h3>
-              <p className="bento-card__text">
-                Lo-fi for deep work, Bollywood for vibes, indie for
-                late-night coding.
-              </p>
-            </div>
-
-            <div className="bento-card">
-              <RiCupLine className="bento-card__icon" />
-              <h3 className="bento-card__title">Chai &gt; Coffee</h3>
-              <p className="bento-card__text">
-                Controversial, I know. But a strong cup of
-                chai fuels my best commits.
-              </p>
-            </div>
-
-            <div className="bento-card">
-              <RiBookOpenLine className="bento-card__icon" />
-              <h3 className="bento-card__title">Learning</h3>
-              <p className="bento-card__text">
-                Always exploring — system design, Web3,
-                or the latest React RFC.
-              </p>
-            </div>
-
-            <div className="bento-card bento-card--wide">
-              <RiLightbulbLine className="bento-card__icon" />
-              <h3 className="bento-card__title">Side Projects</h3>
-              <p className="bento-card__text">
-                Building random ideas into real things is my creative outlet.
-                Half my best skills came from weekend experiments.
-              </p>
-            </div>
-
-            <div className="bento-card">
-              <RiCameraLine className="bento-card__icon" />
-              <h3 className="bento-card__title">Photography</h3>
-              <p className="bento-card__text">
-                Sunsets, street life, minimal compositions —
-                a photographer&apos;s eye helps me design better.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="about-work" ref={workSectionRef}>
         <div className="about-work__inner">
           <h2 className="about-work__heading">
@@ -870,6 +892,7 @@ const About = () => {
                       );
                     })}
                   </div>
+
                 </div>
               </div>
             ))}
@@ -1005,6 +1028,72 @@ const About = () => {
         </div>
       </section>
 
+      <section className="about-radar" ref={radarSectionRef}>
+        <div className="about-radar__inner">
+          <h2 className="about-radar__heading">
+            <span className="about-radar__heading-bold">Companies on</span>{" "}
+            <span className="about-radar__heading-italic">my radar</span>
+          </h2>
+          <p className="about-radar__subtitle">
+            I&apos;ve interviewed at some, worked at a few &mdash; and I admire all of them.
+          </p>
+
+          <div className="about-radar__grid">
+            {RADAR_COMPANIES.map((co, i) => (
+              <div key={i} className={`radar-item ${co.status === "W" ? "radar-item--worked" : ""}`}>
+                {co.status === "W" && (
+                  <span className="radar-item__badge">
+                    <RiCheckboxCircleFill />
+                  </span>
+                )}
+                {co.icon ? (
+                  <co.icon
+                    className="radar-item__logo radar-item__logo--icon"
+                    style={{ color: co.color }}
+                  />
+                ) : (
+                  <img
+                    src={co.svg || co.logo || `https://www.google.com/s2/favicons?domain=${co.favicon}&sz=128`}
+                    alt={co.name}
+                    className={`radar-item__logo${co.darkInvert ? " radar-item__logo--dark-invert" : ""}`}
+                    loading="lazy"
+                  />
+                )}
+                <span className="radar-item__name">{co.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="about-personal" ref={personalSectionRef}>
+        <div className="about-personal__inner">
+          <h2 className="about-personal__heading">
+            <span className="about-personal__heading-bold">Beyond</span>{" "}
+            <span className="about-personal__heading-italic">the code</span>
+          </h2>
+          <p className="about-personal__text">
+            When I&apos;m not shipping features or wrestling with state management,
+            you&apos;ll find me grinding ranked in Valorant, hunting for the perfect
+            lo-fi playlist, sipping way too much chai, tinkering with side projects
+            that may or may not see the light of day, or chasing golden-hour light
+            with a camera. I believe the best engineers are curious about everything
+            — not just code.
+          </p>
+
+          <div className="about-personal__track-wrapper">
+            <div className="about-personal__track" ref={personalTrackRef}>
+              {PERSONAL_IMAGES.map((img, i) => (
+                <div key={i} className="personal-img">
+                  <img src={img.src} alt={img.label} loading="lazy" />
+                  <span className="personal-img__label">{img.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="about-hire" ref={hireSectionRef}>
         <div className="about-hire__inner">
           <h2 className="about-hire__heading">
@@ -1028,15 +1117,6 @@ const About = () => {
                 Jokes aside, I&apos;ve worked among the leading engineering teams in India. I also
                 have experience of working in various sectors ranging from food-tech, ed-tech to
                 fin-tech — shipping production-grade UIs that millions of users interact with daily.
-              </p>
-            </div>
-
-            <div className="about-hire__point">
-              <span className="about-hire__arrow">&#8627;</span>
-              <p className="about-hire__text">
-                I am a quick learner, can work independently and I love a challenge. Whether it&apos;s
-                picking up a new framework over the weekend or debugging a gnarly race condition at
-                2&nbsp;AM — I thrive under pressure and ship on time.
               </p>
             </div>
 

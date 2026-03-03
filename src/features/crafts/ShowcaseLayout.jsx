@@ -10,13 +10,13 @@ import CraftWrapper from "./CraftWrapper";
 const ShowcaseCard = ({ craft, index, onViewClick }) => (
   <motion.article
     className="showcase-card-new"
-    initial={{ y: 48, opacity: 0 }}
+    initial={{ y: 60, opacity: 0 }}
     whileInView={{ y: 0, opacity: 1 }}
-    viewport={{ once: false, margin: "-30px 0px -30px 0px" }}
+    viewport={{ once: true, margin: "-40px 0px -40px 0px" }}
     transition={{
-      duration: 0.5,
-      delay: index * 0.08,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      duration: 0.65,
+      delay: index * 0.1,
+      ease: [0.22, 1, 0.36, 1],
     }}
   >
     {/* Simple image preview */}
@@ -198,12 +198,12 @@ const ShowcaseLayout = () => {
       >
         <motion.header
           className="showcase-header"
-          initial={{ y: 48, opacity: 0 }}
+          initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: false, margin: "-30px 0px -30px 0px" }}
+          viewport={{ once: true, margin: "-30px 0px -30px 0px" }}
           transition={{
-            duration: 0.5,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.7,
+            ease: [0.22, 1, 0.36, 1],
           }}
         >
           <div className="showcase-header__inner">
@@ -215,32 +215,35 @@ const ShowcaseLayout = () => {
                 className="showcase-header__icon"
                 aria-hidden
               />
-              <h1 className="showcase-header__heading">Showcase</h1>
+              <h1 className="showcase-header__heading">
+                <span className="showcase-header__heading-bold">Show</span>
+                <span className="showcase-header__heading-italic">case</span>
+              </h1>
             </div>
           </div>
         </motion.header>
 
         <motion.section
           className="showcase-cta"
-          initial={{ y: 48, opacity: 0 }}
+          initial={{ y: 32, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: false, margin: "-30px 0px -30px 0px" }}
+          viewport={{ once: true, margin: "-30px 0px -30px 0px" }}
           transition={{
-            duration: 0.5,
-            delay: 0.1,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            duration: 0.7,
+            delay: 0.2,
+            ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <h2 className="showcase-cta__heading">
-            Experiments, side projects & playful builds. <br />
-            From interactive UI toys to pixel-perfect explorations—each craft is a
-            small window into how I think and ship. Scroll to see them shuffle
-            into place.
-          </h2>
-          <p className="showcase-cta__sub">Want to see your work featured?</p>
+          <p className="showcase-cta__heading">
+            A collection of UI experiments, micro-interactions, and side projects
+            that I build to explore new ideas. Each craft is a small window into
+            how I think, design, and ship — from playful animations to
+            production-ready components.
+          </p>
+          <p className="showcase-cta__sub">Explore all crafts below</p>
           <button type="button" className="showcase-cta__btn">
-            Submit your site
-            <RiArrowRightLine className="showcase-cta__btn-icon" size={18} />
+            View source
+            <RiArrowRightLine className="showcase-cta__btn-icon" size={16} />
           </button>
         </motion.section>
       </motion.div>

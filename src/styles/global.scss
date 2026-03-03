@@ -810,28 +810,11 @@ body {
   align-items: center;
   width: 100%;
   max-width: 100%;
-  padding: 200px 5vw 120px;
+  padding: 160px 5vw 120px;
   margin: 0 auto;
-  background: #f8f8f8;
+  background: var(--color-bg-primary);
   min-height: 100vh;
   position: relative;
-
-  /* Subtle radial lines background (Osmo-inspired) */
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 80% 50% at 50% 0%,
-      rgba(124, 58, 237, 0.04) 0%,
-      transparent 50%
-    );
-    pointer-events: none;
-  }
-}
-
-[data-theme="dark"] .showcase-page {
-  background: var(--color-bg-primary);
 }
 
 .showcase-hero {
@@ -860,15 +843,17 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  font-family: "Switzer", sans-serif;
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
-  font-weight: 600;
-  color: #fff;
-  background: #ff63ff;
-  padding: 6px 14px;
-  border-radius: 999px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+  font-weight: 500;
+  color: var(--color-pop);
+  background: none;
+  padding: 0;
+  border-radius: 0;
   text-transform: lowercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 2px;
+  border-bottom: 1px dashed var(--color-pop);
+  padding-bottom: 2px;
 }
 
 .showcase-header__title-row {
@@ -880,69 +865,77 @@ body {
   padding-top: 2.5rem;
 }
 
-[data-theme="dark"] .showcase-header__pill {
-  background: #ff63ff;
-  color: #fff;
-}
-
 .showcase-header__icon {
-  width: clamp(48px, 7vw, 72px);
-  height: clamp(48px, 7vw, 72px);
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
   flex-shrink: 0;
-  filter: invert(45%) sepia(90%) saturate(1200%) hue-rotate(270deg) brightness(1.05);
-  animation: asterisk-spin 4s linear infinite;
+  filter: invert(25%) sepia(98%) saturate(2000%) hue-rotate(210deg) brightness(0.95);
+  animation: asterisk-spin 6s linear infinite;
 }
 
 .showcase-header__heading {
-  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
-  font-weight: 700;
-  font-size: clamp(4rem, 12vw, 8rem);
+  font-size: clamp(3.5rem, 10vw, 6.5rem);
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--color-text-primary);
+}
+
+.showcase-header__heading-bold {
+  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
+  font-weight: 700;
+}
+
+.showcase-header__heading-italic {
+  font-family: "Boska", serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-pop);
 }
 
 /* CTA section */
 .showcase-cta {
   text-align: center;
   margin-top: 0;
-  margin-bottom: 64px;
+  margin-bottom: 72px;
   padding: 0;
   width: 85vw;
-  max-width: 85vw;
+  max-width: 720px;
 }
 
 .showcase-cta__heading {
-  font-family:  "Switzer", sans-serif;
-  font-size: clamp(1.35rem, 2.8vw, 1.85rem);
-  font-weight: 300;
-  color: var(--color-text-primary);
-  margin: 0 0 30px;
-  line-height: 1.35;
+  font-family: "Switzer", sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  margin: 0 0 32px;
+  line-height: 1.7;
 }
 
 .showcase-cta__sub {
-  font-family: "Satoshi", "Switzer", sans-serif;
-  font-size: 1rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
   font-weight: 500;
   color: var(--color-text-muted);
-  margin: 0 0 24px;
+  margin: 0 0 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
 .showcase-cta__btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: "Cabinet Grotesk", "Space Grotesk", sans-serif;
-  font-size: 0.85rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
   font-weight: 500;
   color: #fff;
-  background: #4c1d95;
+  background: var(--color-accent);
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 10px 22px;
+  border-radius: 0;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
+  letter-spacing: 0.3px;
 }
 
 .showcase-cta__btn-icon {
@@ -950,16 +943,19 @@ body {
 }
 
 .showcase-cta__btn:hover {
-  background: #5b21b6;
+  background: var(--color-accent-light);
+  transform: translateY(-1px);
 }
 
 /* Showcase grid — 2 rows × 3 cards, aligned with navbar width */
 .showcase-grid-new {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px 20px;
+  gap: 32px 24px;
   width: 85vw;
   max-width: 85vw;
+  padding-top: 48px;
+  border-top: 0.5px solid var(--color-border);
 }
 
 .showcase-card-new {
@@ -970,16 +966,22 @@ body {
 
 /* Image preview — top, more rectangular */
 .showcase-card-new__preview {
-  border-radius: 4px;
+  border-radius: 0;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  background: #e5e7eb;
+  background: var(--color-bg-secondary);
+  border: 0.5px solid var(--color-border);
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
   }
 }
 
@@ -1008,12 +1010,13 @@ body {
 }
 
 .showcase-card-new__avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 0;
   overflow: hidden;
   flex-shrink: 0;
-  background: #e5e7eb;
+  background: var(--color-bg-secondary);
+  border: 0.5px solid var(--color-border);
 
   img {
     width: 100%;
@@ -1028,8 +1031,8 @@ body {
 }
 
 .showcase-card-new__owner {
-  font-family: "Cabinet Grotesk", "Space Grotesk", sans-serif;
-  font-size: 0.8rem;
+  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0 0 2px;
@@ -1038,12 +1041,12 @@ body {
 
 .showcase-card-new__handle {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 500;
   color: var(--color-text-muted);
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 1px;
 }
 
 .showcase-card-new__resources {
@@ -1059,36 +1062,35 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
-  background: rgba(124, 58, 237, 0.12);
+  background: rgba(28, 87, 214, 0.1);
   flex-shrink: 0;
 }
 
 [data-theme="dark"] .showcase-card-new__asterisk-wrap {
-  background: rgba(124, 58, 237, 0.2);
+  background: rgba(28, 87, 214, 0.2);
 }
 
 .showcase-card-new__asterisk {
-  width: 14px;
-  height: 14px;
-  filter: invert(27%) sepia(98%) saturate(2500%) hue-rotate(245deg) brightness(90%) contrast(95%);
-  animation: asterisk-spin 4s linear infinite;
+  width: 12px;
+  height: 12px;
+  filter: invert(25%) sepia(98%) saturate(2000%) hue-rotate(210deg) brightness(0.95);
+  animation: asterisk-spin 6s linear infinite;
 }
 
 .showcase-card-new__resources-text {
   position: relative;
-  font-family: "Cabinet Grotesk", "Space Grotesk", sans-serif;
-  font-size: 0.6rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.58rem;
   font-weight: 500;
   color: var(--color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 1px;
   text-decoration: none;
   padding-bottom: 4px;
 
-  /* Base underline — white shade, 4px below text */
   &::after {
     content: "";
     position: absolute;
@@ -1096,10 +1098,9 @@ body {
     bottom: 0;
     height: 1px;
     width: 100%;
-    background: rgba(0, 0, 0, 0.12);
+    background: var(--color-border);
   }
 
-  /* Progress bar underline — grows on hover */
   &::before {
     content: "";
     position: absolute;
@@ -1107,13 +1108,13 @@ body {
     bottom: 0;
     height: 1px;
     width: 0;
-    background: #7c3aed;
+    background: var(--color-accent);
     transition: width 0.3s ease;
   }
 }
 
 [data-theme="dark"] .showcase-card-new__resources-text::after {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--color-border);
 }
 
 .showcase-card-new__resources:hover .showcase-card-new__resources-text::before {
@@ -1129,24 +1130,25 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-family: "Cabinet Grotesk", "Space Grotesk", sans-serif;
-  font-size: 0.65rem;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.62rem;
   font-weight: 600;
   color: #fff;
-  background: #1a1a1a;
+  background: var(--color-text-primary);
   border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border-radius: 0;
   flex-shrink: 0;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 1px;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease;
   overflow: visible;
 }
 
 .showcase-card-new__view-btn:hover {
-  background: #2d2d2d;
+  background: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .showcase-card-new__view-btn-icon {
@@ -1178,12 +1180,13 @@ body {
 }
 
 [data-theme="dark"] .showcase-card-new__view-btn {
-  background: #fff;
-  color: #1a1a1a;
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
 }
 
 [data-theme="dark"] .showcase-card-new__view-btn:hover {
-  background: #e5e5e5;
+  background: var(--color-accent);
+  color: #fff;
 }
 
 @media (max-width: 1024px) {
@@ -1197,7 +1200,15 @@ body {
 
 @media (max-width: 900px) {
   .showcase-grid-new {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .showcase-grid-new {
     grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
 
@@ -1330,8 +1341,8 @@ body {
 }
 
 .crafts-modal__placeholder {
-  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
-  font-size: 1.25rem;
+  font-family: "Switzer", sans-serif;
+  font-size: 1rem;
   color: var(--color-text-muted);
   text-align: center;
 }

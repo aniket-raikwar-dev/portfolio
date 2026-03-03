@@ -69,7 +69,7 @@
   }
 
   &--highlight {
-    color: var(--color-accent);
+    color: var(--color-pop);
     font-style: italic;
     font-family: "Boska", serif;
   }
@@ -170,10 +170,10 @@
 .about-marquee {
   width: 100%;
   overflow: hidden;
-  padding: 28px 0;
+  padding: 24px 0;
   border-top: 0.5px solid var(--color-border);
   border-bottom: 0.5px solid var(--color-border);
-  margin-top: 60px;
+  margin-top: 40px;
   background: var(--marquee-bg);
 }
 
@@ -202,20 +202,21 @@
 }
 
 .about-marquee__separator {
-  font-size: 0.75rem;
-  color: var(--color-accent);
-  opacity: 1;
+  font-size: 0.8rem;
+  color: var(--color-pop);
+  opacity: 0.8;
 }
 
 /* ─── Beyond the Code (Personal) ─── */
 
 .about-personal {
-  padding: 100px 0;
+  padding: 72px 0 80px;
+  overflow: hidden;
 }
 
 .about-personal__inner {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -234,100 +235,78 @@
 .about-personal__heading-italic {
   font-family: "Boska", serif;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--color-pop);
 }
 
-.about-personal__subtitle {
+.about-personal__text {
   font-family: "Switzer", sans-serif;
-  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+  font-size: clamp(0.88rem, 1.1vw, 0.98rem);
   font-weight: 400;
   color: var(--color-text-muted);
   letter-spacing: 0.2px;
-  max-width: 500px;
-  line-height: 1.65;
+  max-width: 650px;
+  line-height: 1.75;
   margin-bottom: 40px;
 }
 
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.about-personal__track-wrapper {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
 }
 
-.bento-card {
-  padding: 28px 24px;
-  border: 0.5px solid var(--color-border);
-  background: var(--color-bg-secondary);
+.about-personal__track {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+  padding: 0 5vw;
+  will-change: transform;
+}
+
+.personal-img {
+  flex-shrink: 0;
+  width: clamp(220px, 22vw, 300px);
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
+  border: 0.5px solid var(--color-border);
+  perspective: 600px;
+  transition: transform 0.4s ease;
 
   &:hover {
-    border-color: var(--color-accent);
-    transform: translateY(-4px);
+    transform: scale(1.03);
+  }
 
-    &::after {
-      transform: scaleX(1);
-    }
+  img {
+    width: 100%;
+    height: clamp(160px, 16vw, 220px);
+    object-fit: cover;
+    display: block;
   }
 }
 
-.bento-card--wide {
-  grid-column: span 2;
-}
-
-.bento-card__icon {
-  width: 24px;
-  height: 24px;
-  color: var(--color-accent);
-  opacity: 0.7;
-  flex-shrink: 0;
-}
-
-.bento-card__title {
-  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  font-weight: 600;
-  color: var(--color-text-primary);
-  letter-spacing: 0.1px;
-}
-
-.bento-card__text {
-  font-family: "Switzer", sans-serif;
-  font-size: clamp(0.78rem, 0.9vw, 0.88rem);
-  font-weight: 400;
+.personal-img__label {
+  display: block;
+  padding: 10px 14px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--color-text-muted);
-  line-height: 1.65;
-  letter-spacing: 0.15px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  background: var(--color-bg-secondary);
+  border-top: 0.5px solid var(--color-border);
 }
 
 /* ─── Work Experience ─── */
 
 .about-work {
   position: relative;
-  padding: 120px 0 100px;
+  padding: 72px 0 64px;
   background: var(--color-bg-primary);
 }
 
 .about-work__inner {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -346,7 +325,7 @@
 .about-work__heading-italic {
   font-family: "Boska", serif;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--color-pop);
 }
 
 .about-work__subtitle {
@@ -385,7 +364,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: var(--color-accent);
+  background: var(--color-pop);
   transform-origin: top center;
   transform: scaleY(0);
 }
@@ -443,9 +422,9 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: var(--color-accent);
+  background: var(--color-pop);
   border: 2px solid var(--color-bg-primary);
-  box-shadow: 0 0 0 1.5px var(--color-accent);
+  box-shadow: 0 0 0 1.5px var(--color-pop);
   transform: scale(0);
   opacity: 0;
 }
@@ -523,7 +502,6 @@
 }
 
 $handle-size: 4px;
-$handle-color: var(--chip-color);
 
 .exp-tech-chip {
   --_chip: #443e38;
@@ -538,16 +516,16 @@ $handle-color: var(--chip-color);
   will-change: transform, opacity;
   transition: background 0.3s ease, border-color 0.3s ease;
 
-  /* Corner handles */
   &::before,
   &::after {
     content: "";
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $handle-color;
+    border: 1px solid color-mix(in srgb, var(--_chip) 50%, var(--color-border));
     background: var(--color-bg-primary);
     pointer-events: none;
+    transition: border-color 0.3s ease;
   }
 
   &::before {
@@ -565,7 +543,6 @@ $handle-color: var(--chip-color);
   }
 }
 
-/* Bottom corner handles via inner spans */
 .exp-tech-chip__handles {
   position: absolute;
   inset: 0;
@@ -577,8 +554,9 @@ $handle-color: var(--chip-color);
     position: absolute;
     width: $handle-size;
     height: $handle-size;
-    border: 1px solid $handle-color;
+    border: 1px solid color-mix(in srgb, var(--_chip) 50%, var(--color-border));
     background: var(--color-bg-primary);
+    transition: border-color 0.3s ease;
   }
 
   &::before {
@@ -596,7 +574,7 @@ $handle-color: var(--chip-color);
   width: 12px;
   height: 12px;
   flex-shrink: 0;
-  color: var(--_chip);
+  color: var(--chip-color);
   transition: color 0.3s ease;
 }
 
@@ -612,12 +590,12 @@ $handle-color: var(--chip-color);
 /* ─── Tech Stack Grid ─── */
 
 .about-skills {
-  padding: 100px 0 120px;
+  padding: 64px 0 72px;
 }
 
 .about-skills__header {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto 40px;
 }
 
@@ -636,7 +614,7 @@ $handle-color: var(--chip-color);
 .about-skills__heading-italic {
   font-family: "Boska", serif;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--color-pop);
 }
 
 .about-skills__subtitle {
@@ -655,7 +633,7 @@ $handle-color: var(--chip-color);
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(7, 1fr);
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
   aspect-ratio: 10 / 7;
   border: 0.5px solid var(--color-border);
@@ -751,12 +729,12 @@ $handle-color: var(--chip-color);
 /* ─── Testimonials ─── */
 
 .about-testi {
-  padding: 100px 0 40px;
+  padding: 64px 0 40px;
 }
 
 .about-testi__header {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto 48px;
 }
 
@@ -775,7 +753,7 @@ $handle-color: var(--chip-color);
 .about-testi__heading-italic {
   font-family: "Boska", serif;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--color-pop);
 }
 
 .about-testi__subtitle {
@@ -790,7 +768,7 @@ $handle-color: var(--chip-color);
 
 .about-testi__carousel {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -821,11 +799,10 @@ $handle-color: var(--chip-color);
   &::after {
     content: "";
     position: absolute;
-    background: var(--color-accent);
+    background: var(--color-pop);
     transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
-  // Right border — slides down from top
   &::before {
     top: 0;
     right: -3px;
@@ -833,7 +810,6 @@ $handle-color: var(--chip-color);
     height: 0;
   }
 
-  // Bottom border — slides in from left
   &::after {
     bottom: -3px;
     left: 0;
@@ -858,8 +834,8 @@ $handle-color: var(--chip-color);
 .testi-card__quote-icon {
   width: 28px;
   height: 28px;
-  color: var(--color-accent);
-  opacity: 0.35;
+  color: var(--color-pop);
+  opacity: 0.4;
   flex-shrink: 0;
 }
 
@@ -936,7 +912,7 @@ $handle-color: var(--chip-color);
 }
 
 .about-testi__dot--active {
-  background: var(--color-accent);
+  background: var(--color-pop);
   width: 24px;
   border-radius: 4px;
 }
@@ -962,9 +938,9 @@ $handle-color: var(--chip-color);
   transition: all 0.25s ease;
 
   &:hover:not(:disabled) {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-secondary));
+    border-color: var(--color-pop);
+    color: var(--color-pop);
+    background: color-mix(in srgb, var(--color-pop) 6%, var(--color-bg-secondary));
   }
 
   &:disabled {
@@ -973,11 +949,126 @@ $handle-color: var(--chip-color);
   }
 }
 
+/* ─── Companies Radar ─── */
+
+.about-radar {
+  padding: 64px 0;
+  border-top: 0.5px solid var(--color-border);
+}
+
+.about-radar__inner {
+  width: 85vw;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-radar__heading {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.about-radar__heading-bold {
+  font-family: "Cabinet Grotesk", "Switzer", sans-serif;
+}
+
+.about-radar__heading-italic {
+  font-family: "Boska", serif;
+  font-style: italic;
+  color: var(--color-pop);
+}
+
+.about-radar__subtitle {
+  font-family: "Switzer", sans-serif;
+  font-size: clamp(0.85rem, 1.1vw, 0.95rem);
+  font-weight: 400;
+  color: var(--color-text-muted);
+  letter-spacing: 0.2px;
+  max-width: 500px;
+  line-height: 1.65;
+  margin-bottom: 48px;
+}
+
+.about-radar__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--color-border);
+  border: 0.5px solid var(--color-border);
+}
+
+.radar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 36px 16px;
+  position: relative;
+  background: var(--color-bg-primary);
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: var(--color-bg-secondary);
+
+    .radar-item__logo {
+      transform: scale(1.12);
+    }
+  }
+
+  &--worked {
+    .radar-item__name {
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+  }
+}
+
+.radar-item__badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: var(--color-accent);
+  line-height: 1;
+  display: flex;
+}
+
+.radar-item__logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+
+  &--icon {
+    font-size: 36px;
+  }
+
+  &--dark-invert {
+    [data-theme="dark"] & {
+      filter: invert(1);
+    }
+  }
+}
+
+.radar-item__name {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.72rem, 0.85vw, 0.82rem);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  letter-spacing: 0.3px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
 /* ─── Why Hire Me ─── */
 
 .about-hire {
   position: relative;
-  padding: 100px 0 120px;
+  padding: 72px 0 80px;
   background-image: radial-gradient(
     circle,
     var(--color-border) 1px,
@@ -989,7 +1080,7 @@ $handle-color: var(--chip-color);
 
 .about-hire__inner {
   width: 85vw;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -1008,7 +1099,7 @@ $handle-color: var(--chip-color);
 .about-hire__heading-italic {
   font-family: "Boska", serif;
   font-style: italic;
-  color: var(--color-accent);
+  color: var(--color-pop);
 }
 
 .about-hire__points {
@@ -1025,7 +1116,7 @@ $handle-color: var(--chip-color);
 
 .about-hire__arrow {
   font-size: 1.2rem;
-  color: var(--color-text-muted);
+  color: var(--color-pop);
   flex-shrink: 0;
   line-height: 1.7;
 }
@@ -1072,6 +1163,11 @@ $handle-color: var(--chip-color);
     min-height: auto;
   }
 
+  .about-hero__headline {
+    font-size: clamp(2.8rem, 9vw, 3.8rem);
+    letter-spacing: -1px;
+  }
+
   .about-hero__left {
     max-width: 100%;
     display: flex;
@@ -1112,31 +1208,43 @@ $handle-color: var(--chip-color);
   }
 
   .about-personal {
-    padding: 70px 0;
+    padding: 56px 0;
   }
 
   .about-personal__inner {
     width: 92vw;
   }
 
-  .bento-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .personal-img {
+    width: clamp(180px, 40vw, 240px);
+
+    img {
+      height: clamp(130px, 30vw, 180px);
+    }
   }
 
-  .bento-card--wide {
-    grid-column: span 2;
+  .about-radar__inner {
+    width: 92vw;
+  }
+
+  .about-radar__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .about-radar {
+    padding: 48px 0;
   }
 
   .about-work {
-    padding: 80px 0 60px;
+    padding: 56px 0 48px;
   }
 
   .about-skills {
-    padding: 60px 0 80px;
+    padding: 48px 0 56px;
   }
 
   .about-testi {
-    padding: 70px 0 30px;
+    padding: 48px 0 24px;
   }
 
   .about-testi__header,
@@ -1154,7 +1262,7 @@ $handle-color: var(--chip-color);
   }
 
   .about-hire {
-    padding: 70px 0 80px;
+    padding: 48px 0 56px;
   }
 
   .about-hire__inner {
@@ -1220,6 +1328,10 @@ $handle-color: var(--chip-color);
     gap: 36px;
   }
 
+  .about-hero__headline {
+    font-size: clamp(2.5rem, 10vw, 3.2rem);
+  }
+
   .about-hero__right {
     width: 280px;
     height: 340px;
@@ -1236,28 +1348,39 @@ $handle-color: var(--chip-color);
   }
 
   .about-personal {
-    padding: 50px 0;
+    padding: 40px 0;
   }
 
   .about-personal__inner {
     width: 94vw;
   }
 
-  .bento-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .personal-img {
+    width: clamp(160px, 50vw, 200px);
+
+    img {
+      height: clamp(110px, 35vw, 150px);
+    }
   }
 
-  .bento-card--wide {
-    grid-column: span 1;
+  .about-radar__inner {
+    width: 94vw;
   }
 
-  .bento-card {
-    padding: 22px 20px;
+  .about-radar__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-radar {
+    padding: 36px 0;
+  }
+
+  .radar-item {
+    padding: 28px 12px;
   }
 
   .about-work {
-    padding: 60px 0 50px;
+    padding: 48px 0 40px;
   }
 
   .about-work__inner {
@@ -1269,11 +1392,11 @@ $handle-color: var(--chip-color);
   }
 
   .about-skills {
-    padding: 40px 0 60px;
+    padding: 36px 0 48px;
   }
 
   .about-testi {
-    padding: 40px 0 20px;
+    padding: 36px 0 16px;
   }
 
   .about-testi__header,
@@ -1297,7 +1420,7 @@ $handle-color: var(--chip-color);
   }
 
   .about-hire {
-    padding: 50px 0 60px;
+    padding: 40px 0 48px;
     background-size: 18px 18px;
   }
 
