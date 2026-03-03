@@ -14,6 +14,12 @@ import {
   RiDoubleQuotesL,
   RiArrowLeftSLine,
   RiArrowRightSLine,
+  RiGamepadLine,
+  RiMusic2Line,
+  RiBookOpenLine,
+  RiCameraLine,
+  RiLightbulbLine,
+  RiCupLine,
 } from "react-icons/ri";
 import {
   SiTypescript,
@@ -266,6 +272,7 @@ const About = () => {
   const statsRef = useRef(null);
   const imageFrameRef = useRef(null);
   const marqueeTrackRef = useRef(null);
+  const personalSectionRef = useRef(null);
   const workSectionRef = useRef(null);
   const timelineRef = useRef(null);
   const timelineLineRef = useRef(null);
@@ -344,6 +351,49 @@ const About = () => {
         delay: 1.8,
         ease: "power3.out",
       });
+
+      // Personal / Beyond code section
+      if (personalSectionRef.current) {
+        gsap.from(".about-personal__heading", {
+          y: 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: personalSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        gsap.from(".about-personal__subtitle", {
+          y: 30,
+          opacity: 0,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: personalSectionRef.current,
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        });
+
+        const bentoCards = personalSectionRef.current.querySelectorAll(".bento-card");
+        gsap.from(bentoCards, {
+          y: 40,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: personalSectionRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        });
+      }
 
       // Work section heading reveal
       const workTl = gsap.timeline({
@@ -686,6 +736,75 @@ const About = () => {
           ))}
         </div>
       </div>
+
+      <section className="about-personal" ref={personalSectionRef}>
+        <div className="about-personal__inner">
+          <h2 className="about-personal__heading">
+            <span className="about-personal__heading-bold">Beyond</span>{" "}
+            <span className="about-personal__heading-italic">the code</span>
+          </h2>
+          <p className="about-personal__subtitle">
+            When I&apos;m not pushing pixels or shipping features, here&apos;s
+            what keeps me going.
+          </p>
+
+          <div className="bento-grid">
+            <div className="bento-card bento-card--wide">
+              <RiGamepadLine className="bento-card__icon" />
+              <h3 className="bento-card__title">Gaming</h3>
+              <p className="bento-card__text">
+                Strategy &amp; RPG games are my go-to for unwinding.
+                Currently on a Valorant grind.
+              </p>
+            </div>
+
+            <div className="bento-card">
+              <RiMusic2Line className="bento-card__icon" />
+              <h3 className="bento-card__title">Music</h3>
+              <p className="bento-card__text">
+                Lo-fi for deep work, Bollywood for vibes, indie for
+                late-night coding.
+              </p>
+            </div>
+
+            <div className="bento-card">
+              <RiCupLine className="bento-card__icon" />
+              <h3 className="bento-card__title">Chai &gt; Coffee</h3>
+              <p className="bento-card__text">
+                Controversial, I know. But a strong cup of
+                chai fuels my best commits.
+              </p>
+            </div>
+
+            <div className="bento-card">
+              <RiBookOpenLine className="bento-card__icon" />
+              <h3 className="bento-card__title">Learning</h3>
+              <p className="bento-card__text">
+                Always exploring — system design, Web3,
+                or the latest React RFC.
+              </p>
+            </div>
+
+            <div className="bento-card bento-card--wide">
+              <RiLightbulbLine className="bento-card__icon" />
+              <h3 className="bento-card__title">Side Projects</h3>
+              <p className="bento-card__text">
+                Building random ideas into real things is my creative outlet.
+                Half my best skills came from weekend experiments.
+              </p>
+            </div>
+
+            <div className="bento-card">
+              <RiCameraLine className="bento-card__icon" />
+              <h3 className="bento-card__title">Photography</h3>
+              <p className="bento-card__text">
+                Sunsets, street life, minimal compositions —
+                a photographer&apos;s eye helps me design better.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="about-work" ref={workSectionRef}>
         <div className="about-work__inner">
